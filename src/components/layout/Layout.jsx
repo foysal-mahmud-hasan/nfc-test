@@ -23,19 +23,8 @@ function Layout() {
 
         >
             <AppShell.Header height={headerHeight}>
-                <Container
-                    size="xl"
-                    styles={(theme) => ({
-                        width: '100%',
-                        [`@media (minWidth: ${theme.breakpoints.md}px)`]: {
-                            maxWidth: '900px',
-                        },
-                    })}
-                >
-                    <Header />
-                </Container>
+                <Header />
             </AppShell.Header>
-
             <AppShell.Main bg="white">
                 <Container
                     size="xl"

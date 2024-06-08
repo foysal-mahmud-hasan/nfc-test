@@ -69,31 +69,41 @@ export default function Header() {
     const isHomePage = location.pathname === "/";
 
     return (
-        <Box bg={'white'} pos={`relative`}>
-            <Group justify="space-between" h="100%" bg={'white'} pr={'xs'} className="borderRadiusHeader">
-                <Link to="/">
-                    <Image h={40} fit={'contain'} maw={{ base: '50%', md: '60%' }} src={LazyCoders} alt="Facebook" />
-                </Link>
-                <Group>
-                    {isHomePage && !isClicked && (
-                        <Button
-                            size="xs"
-                            color="orange.6"
-                            type="submit"
-                            // mt={''}
-                            id="EntityFormSubmit"
-                            onClick={handleClick}
-                        >
-                            <Flex direction="column" gap={0}>
-                                <Text fz={12} fw={400}>
-                                    {t('SignUp')}
-                                </Text>
-                            </Flex>
-                        </Button>
-                    )}
+        <Container
+            size="xl"
+            styles={(theme) => ({
+                width: '100%',
+                [`@media (minWidth: ${theme.breakpoints.md}px)`]: {
+                    maxWidth: '900px',
+                },
+            })}
+        >
+            <Box bg={'white'} pos={`relative`}>
+                <Group justify="space-between" h="100%" bg={'white'} pr={'xs'} className="borderRadiusHeader">
+                    <Link to="/">
+                        <Image h={40} fit={'contain'} maw={{ base: '50%', md: '60%' }} src={LazyCoders} alt="Facebook" />
+                    </Link>
+                    <Group>
+                        {isHomePage && !isClicked && (
+                            <Button
+                                size="xs"
+                                color="orange.6"
+                                type="submit"
+                                // mt={''}
+                                id="EntityFormSubmit"
+                                onClick={handleClick}
+                            >
+                                <Flex direction="column" gap={0}>
+                                    <Text fz={12} fw={400}>
+                                        {t('SignUp')}
+                                    </Text>
+                                </Flex>
+                            </Button>
+                        )}
+                    </Group>
                 </Group>
-            </Group>
 
-        </Box>
+            </Box>
+        </Container>
     );
 }

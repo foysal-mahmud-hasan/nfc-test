@@ -18,9 +18,6 @@ import { useOutletContext } from "react-router-dom";
 function SignupViewIndex({ setFormData }) {
     const { t, i18n } = useTranslation();
 
-    const { height, width } = useViewportSize();
-    const context = useOutletContext();
-
     const progress = getLoadingProgress()
 
     return (

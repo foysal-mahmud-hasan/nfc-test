@@ -44,7 +44,7 @@ function ViewCard() {
     const { t } = useTranslation();
 
     const { mainAreaHeight } = useOutletContext();
-    const height = mainAreaHeight - 30;
+    const height = mainAreaHeight - 65;
     const [opened, { open, close }] = useDisclosure(false);
     const formData = readLocalStorageValue({ key: 'signup-form-data' });
     const isMobile = useMediaQuery(`(max-width: ${em(750)})`);
@@ -52,7 +52,7 @@ function ViewCard() {
 
     return (
         <Box pt={2}>
-            <ScrollArea p={0} h={{ base: height + 28, md: height - 25 }} scrollbarSize={2} scrollbars="y" type="never" mb={2} className={'boxBackground borderRadiusAll'}>
+            <ScrollArea p={0} h={{ base: height + 28, md: height + 35 }} scrollbarSize={2} scrollbars="y" type="never" mb={2} className={'boxBackground borderRadiusAll'}>
                 <Flex justify="center" align="center" bg='var(--mantine-color-blue-9)'>
                     <Card
                         shadow="xl"
@@ -336,8 +336,8 @@ function ViewCard() {
                                 <Image height={isMobile ? 30 : 50} fit="contain" src={twitter} alt="Twitter" />
                             </Anchor>
                         </Flex>
-                        <Grid columns={12}>
-                            <Grid.Col span={1}></Grid.Col>
+                        <Grid columns={12} >
+                            <Grid.Col span={1}></Grid.Col >
                             <Grid.Col span={10} mt="md">
                                 <Button
                                     fullWidth
@@ -377,10 +377,10 @@ function ViewCard() {
                     </Card>
                 </Flex>
             </ScrollArea>
-            <Box pl={`sm`} pb={{ base: '2', md: 'xs' }} pr={8} mb={1} pt={'xs'} className={'boxBackground borderRadiusAll'}>
+            <Box className={'boxBackground borderRadiusAll'} pb={'sm'} pt={6} pr={'sm'} >
                 <Grid span={12}>
                     <Grid.Col>
-                        <Group justify="flex-end" h={{ base: 38, md: 30 }} >
+                        <Group justify="flex-end" h={{ base: 30, md: 25 }} >
                             <>
                                 {
                                     <>

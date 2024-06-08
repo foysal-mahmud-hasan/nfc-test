@@ -26,7 +26,7 @@ function SignupForm() {
     const { t, i18n } = useTranslation();
 
     const { mainAreaHeight } = useOutletContext();
-    const height = mainAreaHeight - 80; //TabList height 104
+    const height = mainAreaHeight - 65; //TabList height 104
     const [opened, { open, close }] = useDisclosure(false);
 
     const [saveCreateLoading, setSaveCreateLoading] = useState(false);

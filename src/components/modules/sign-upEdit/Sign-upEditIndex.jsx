@@ -11,7 +11,7 @@ import SignupEditForm from "./Sign-upEditForm.jsx";
 
 function SignupEditIndex() {
     const { t, i18n } = useTranslation();
-    
+
 
     const progress = getLoadingProgress()
 
@@ -21,7 +21,7 @@ function SignupEditIndex() {
             {progress === 100 &&
                 <>
 
-                    <Box bg={'white'} mt={6} className={'borderRadiusAll'}>
+                    <Box >
                         <SignupEditForm />
                     </Box>
                 </>

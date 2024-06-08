@@ -19,9 +19,9 @@ import { useOutletContext } from "react-router-dom";
 
 function SelectDesignIndex({ setFormData }) {
     const { t, i18n } = useTranslation();
-    
+
     const { mainAreaHeight } = useOutletContext();
-    const height = mainAreaHeight - 80;
+    const height = mainAreaHeight - 62;
 
 
 
