@@ -1,0 +1,35 @@
+.footer {
+    min-height: 50px;
+    max-height: 100px;
+    height: auto; /* Adjust based on content or remove if not needed */
+    background-color: var(--mantine-color-body);
+    padding-left: var(--mantine-spacing-md);
+    padding-right: var(--mantine-spacing-md);
+    padding-top: 0 !important;
+}
+
+
+.inner {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.link {
+    display: block;
+    line-height: 1;
+    padding: rem(10px) rem(12px);
+    border-radius: var(--mantine-radius-sm);
+    text-decoration: none;
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+    font-size: var(--mantine-font-size-sm);
+    font-weight: 500;
+
+@mixin hover {
+    background-color:#ffffff;
+    color: var(--mantine-color-orange-5);
+    text-decoration: underline;
+}
+}
+
