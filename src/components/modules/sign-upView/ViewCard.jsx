@@ -39,16 +39,24 @@ import facebook from '../../../assets/images/facebook.png';
 import twitter from '../../../assets/images/twitter.png';
 import linkedin from '../../../assets/images/linkedin.png';
 import instagram from '../../../assets/images/instagram.png';
+import CardGeneratorIndex from "../v-card.jsx/generateAndDownloadVCard";
+
 
 function ViewCard() {
     const { t } = useTranslation();
-
+    const values = readLocalStorageValue({ key: 'signup-form-data' });
     const { mainAreaHeight } = useOutletContext();
     const height = mainAreaHeight - 65;
     const [opened, { open, close }] = useDisclosure(false);
     const formData = readLocalStorageValue({ key: 'signup-form-data' });
     const isMobile = useMediaQuery(`(max-width: ${em(750)})`);
     const navigate = useNavigate();
+
+    const handleCardClick = () => {
+        console.log('Download button clicked');
+        // Call the CardGeneratorIndex component to initiate download
+        CardGeneratorIndex({ values });
+    }
 
     return (
         <Box pt={2}>
@@ -359,9 +367,13 @@ function ViewCard() {
                                 <Button
                                     fullWidth
                                     color="orange.6"
-                                    type="submit"
+                                    // type="submit"
                                     mt={4}
                                     leftSection={<IconUserPlus size={25} />}
+                                    onClick={() => {
+                                        handleCardClick();
+                                    }
+                                    }
                                 >
                                     <Flex direction="column" gap={0}>
                                         <Text size={14} fw={700}>
