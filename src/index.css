@@ -84,6 +84,12 @@ input:focus {
     ;
     border-radius:4px;
 }
+.borderRadiusAllF{
+    border: 2px solid #FFE8CC
+
+    ;
+    border-radius:4px;
+}
 
 .mantine-AppShell-main{
     padding-top: 42px !important;

@@ -12,7 +12,7 @@ import { getLoadingProgress } from "../../global-hook/loading-progress/getLoadin
 
 function SignupLanding() {
     const { t, i18n } = useTranslation();
-    
+
 
 
     const progress = getLoadingProgress()
@@ -22,7 +22,11 @@ function SignupLanding() {
             {progress !== 100 && <Progress color="red" size={"xs"} striped animated value={progress} />}
             {progress === 100 &&
                 <>
-                    <Text>All OK</Text>
+                    <Flex
+                        justify={'center'}
+                        align={'center'}>
+
+                    </Flex>
                 </>
             }
         </>
