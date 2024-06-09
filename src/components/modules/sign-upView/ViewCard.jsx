@@ -398,20 +398,9 @@ function ViewCard() {
                                             color={`orange.6`}
                                             // type="submit"
                                             id="EntityFormSubmit3"
-                                            onClick={() => modals.openConfirmModal({
-                                                title: (
-                                                    <Text size="md"> {t("FormConfirmationTitle")}</Text>
-                                                ),
-                                                children: (
-                                                    <Text size="sm"> {t("FormConfirmationMessageEdit")}</Text>
-                                                ),
-                                                labels: { confirm: t('Submit'), cancel: t('Cancel') }, confirmProps: { color: 'orange.6' },
-                                                onCancel: () => console.log('Cancel'),
-                                                onConfirm: () => {
-                                                    navigate('/sign-upEdit');
-                                                    console.log('ok');
-                                                },
-                                            })}
+                                            onClick={() => {
+                                                navigate('/sign-upEdit');
+                                            }}
                                         >
                                             <Flex direction={`column`} gap={0}>
                                                 <Text fz={12} fw={400}>
