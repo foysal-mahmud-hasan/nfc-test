@@ -11,7 +11,7 @@ function ContactCard() {
                     <img
                         src={formData.companyLogo}
                         alt="Company Logo"
-                        style={{ width: '100%', height: 100, objectFit: 'contain', borderRadius: 'md' }}
+                        style={{ width: '100%', height: '100', objectFit: 'contain', borderRadius: 'md' }}
                     />
                     <Avatar
                         src={formData.profilePic}

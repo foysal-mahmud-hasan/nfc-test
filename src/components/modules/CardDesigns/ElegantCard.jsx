@@ -47,7 +47,7 @@ function ElegantCard() {
                 </Grid>
 
             </Box>
-            <div style={{ position: 'relative', width: '100%', height: 40 }}>
+            <div style={{ position: 'relative', width: '100%', height: '40' }}>
                 <img
                     src={formData.company_logo}
                     alt="Company Logo"

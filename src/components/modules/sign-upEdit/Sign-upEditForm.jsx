@@ -117,7 +117,7 @@ function SignupEditForm() {
                                     <Box>
 
                                         <Box mt={'4'}>
-                                            <ScrollArea h={{ base: height + 20, md: height - 30 }} scrollbarSize={2} scrollbars="y" type="never"  >
+                                            <ScrollArea h={{ base: height + 10, md: height - 30 }} scrollbarSize={2} scrollbars="y" type="never"  >
                                                 <Grid columns={12} gutter={{ base: 6 }} >
                                                     {/* 1st column */}
                                                     <Grid.Col span={{ base: 12, sm: 12, md: 6, lg: 6 }}    >

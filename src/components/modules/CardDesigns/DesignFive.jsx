@@ -7,7 +7,7 @@ function DesignFive() {
     return (
         <Card shadow="lg" padding="lg" radius="md" style={{ width: '63mm', height: '100mm', backgroundColor: '#F8F9FA' }}>
 
-            <Box ta={'center'}>
+            <Box sx={{ textAlign: 'center' }}>
                 <Center >
                     <Avatar
                         src={formData.profile_pic}
@@ -57,7 +57,7 @@ function DesignFive() {
 
 
             >
-                <Box ta={'center'} sx={{ backgroundColor: '#343A40' }}>
+                <Box ta='center' sx={{ backgroundColor: '#343A40' }}>
                     <Center >
                         <Image pb={'xs'} src={formData.company_logo} height={90} fit="contain" alt="Company Logo" maw={'80%'} />
                     </Center>

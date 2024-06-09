@@ -52,7 +52,7 @@ function ViewCard() {
 
     return (
         <Box pt={2}>
-            <ScrollArea p={0} h={{ base: height + 28, md: height + 35 }} scrollbarSize={2} scrollbars="y" type="never" mb={2} className={'boxBackground borderRadiusAll'}>
+            <ScrollArea p={0} h={{ base: height + 70, md: height + 35 }} scrollbarSize={2} scrollbars="y" type="never" mb={2} className={'boxBackground borderRadiusAll'}>
                 <Flex justify="center" align="center" bg='var(--mantine-color-blue-9)'>
                     <Card
                         shadow="xl"
