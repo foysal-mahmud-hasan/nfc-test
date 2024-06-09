@@ -22,6 +22,7 @@ import { useLocalStorage } from '@mantine/hooks';
 import { useNavigate } from "react-router-dom";
 import PhoneNumberInput from "../../form-builders/PhoneNumInput.jsx";
 import { readLocalStorageValue } from '@mantine/hooks';
+import fallbackSrc from '../../../assets/images/fallbackSrc.jpg'
 
 function SignupEditForm() {
     const { t, i18n } = useTranslation();
@@ -437,6 +438,7 @@ function SignupEditForm() {
                                                                                         fieldName={'profile_pic'}
                                                                                         required={false}
                                                                                         placeholder={<Image h={rem(150)} fit="contain" src={formData.profile_pic} />}
+                                                                                        fallbackSrc={fallbackSrc}
                                                                                         nextField={''}
                                                                                     />
                                                                                 </Box>
@@ -627,6 +629,7 @@ function SignupEditForm() {
                                                                                     fieldName={'company_logo'}
                                                                                     required={true}
                                                                                     placeholder={<Image h={rem(150)} fit="contain" src={formData.company_logo} />}
+                                                                                    fallbackSrc={fallbackSrc}
                                                                                     nextField={'address'}
 
                                                                                 />

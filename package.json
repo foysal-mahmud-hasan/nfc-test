@@ -38,7 +38,8 @@
     "react-i18next": "^14.1.2",
     "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^6.23.1",
-    "recharts": "^2.12.7"
+    "recharts": "^2.12.7",
+    "vcard-creator": "^0.7.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

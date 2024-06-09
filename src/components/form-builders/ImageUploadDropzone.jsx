@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { Text, Image, useMantineTheme, Center, Stack, rem } from "@mantine/core";
+import fallbackSrc from '../../assets/images/fallbackSrc.jpg'
 
 function ImageUploadDropzone(props) {
     const { placeholder, form, fieldName, placeholderSize } = props;
@@ -57,11 +58,12 @@ function ImageUploadDropzone(props) {
                 {imageUrl ? (
                     <Image
                         height={imageDimensions.height}
-                        width={imageDimensions.width}
+                        width={'200'}
                         radius="md"
                         src={imageUrl}
                         onLoad={handleImageLoad}
                         fit="contain"
+                        fallbackSrc={fallbackSrc}
                     />
                 ) : (
                     <Stack gap={0}>
