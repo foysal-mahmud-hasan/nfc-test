@@ -5,7 +5,7 @@ function DesignFive() {
 
     const formData = readLocalStorageValue({ key: 'signup-form-data' });
     return (
-        <Card shadow="lg" padding="lg" radius="md" style={{ width: '63mm', height: '100mm', backgroundColor: '#F8F9FA' }}>
+        <Card shadow="lg" padding="lg" radius="md" w={{ base: '60mm', md: '60mm' }} h={'100mm'} style={{ backgroundColor: '#F8F9FA' }}>
 
             <Box sx={{ textAlign: 'center' }}>
                 <Center >

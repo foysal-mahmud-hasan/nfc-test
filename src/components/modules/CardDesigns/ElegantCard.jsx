@@ -5,7 +5,7 @@ import { readLocalStorageValue } from '@mantine/hooks';
 function ElegantCard() {
     const formData = readLocalStorageValue({ key: 'signup-form-data' });
     return (
-        <Card shadow="lg" padding="xs" radius="md" style={{ width: '100mm', height: '60mm' }} bg={'var(--mantine-color-gray-0)'}>
+        <Card shadow="lg" padding="xs" radius="md" w={{ base: '90mm', md: '100mm' }} h={'60mm'} bg={'var(--mantine-color-gray-0)'}>
             <Box textAlign="center" mt={'4'} ml={'xs'} mb={10}>
                 <Text weight={700} size="md">{formData.name}</Text>
                 <Text c="dimmed" size="sm">{formData.designation}</Text>

@@ -6,7 +6,7 @@ function BoldCard() {
     const formData = readLocalStorageValue({ key: 'signup-form-data' });
     return (
         <>
-            <Card shadow="lg" padding="sm" radius="md" style={{ width: '100mm', height: '60mm' }} >
+            <Card shadow="lg" padding="sm" radius="md" w={{ base: '90mm', md: '100mm' }} h={'60mm'} >
                 <div style={{ position: 'relative', width: '100%', height: 70 }}>
                     <img
                         src={formData.company_logo}

@@ -5,7 +5,7 @@ function DesignSix() {
 
     const formData = readLocalStorageValue({ key: 'signup-form-data' });
     return (
-        <Card shadow="lg" radius="md" style={{ width: '60mm', height: '100mm', backgroundColor: '#F8F9FA' }}>
+        <Card shadow="lg" radius="md" w={{ base: '60mm', md: '60mm' }} h={'100mm'} style={{ backgroundColor: '#F8F9FA' }}>
 
             <Box >
 

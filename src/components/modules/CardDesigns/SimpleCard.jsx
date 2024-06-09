@@ -5,7 +5,7 @@ import { readLocalStorageValue } from '@mantine/hooks';
 function SimpleCard() {
     const formData = readLocalStorageValue({ key: 'signup-form-data' });
     return (
-        <Card shadow="lg" padding="xs" radius="md" style={{ width: '100mm', height: '60mm' }} >
+        <Card shadow="lg" padding="xs" radius="md" w={{ base: '90mm', md: '100mm' }} h={'60mm'} >
 
             <div style={{ position: 'start', width: '100%', textAlign: 'start' }}>
                 <Avatar

@@ -32,38 +32,6 @@ function SignupViewIndex({ setFormData }) {
                         {/* <ContactCard /> */}
                         {/* <ContactCardPrev /> */}
                     </Box>
-
-
-                    {/* <ScrollArea h={height + 100}>
-                        <Box bg={'white'} p={'xs'} mt={6} >
-                            <Grid columns={12} gutter={{ base: 6 }} mt={'md'}>
-                                <Grid.Col span={6}>
-                                    <BoldCard />
-                                </Grid.Col>
-                                <Grid.Col span={6}>
-                                    <ElegantCard />
-                                </Grid.Col>
-                            </Grid>
-
-                            <Grid columns={12} gutter={{ base: 6 }} mt={'md'}>
-                                <Grid.Col span={6}>
-                                    <DesignFive />
-                                </Grid.Col>
-                                <Grid.Col span={6}>
-                                    <DesignSix />
-                                </Grid.Col>
-                            </Grid>
-                            <Grid columns={12} gutter={{ base: 6 }} mt={'md'}>
-                                <Grid.Col span={6}>
-                                    <SimpleCard />
-                                </Grid.Col>
-                                <Grid.Col span={6}>
-                                    <DesignFour />
-                                </Grid.Col>
-                            </Grid>
-
-                        </Box>
-                    </ScrollArea> */}
                 </>
             }
         </>

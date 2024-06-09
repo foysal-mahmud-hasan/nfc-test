@@ -5,7 +5,7 @@ import { readLocalStorageValue } from '@mantine/hooks';
 function DesignFour() {
     const formData = readLocalStorageValue({ key: 'signup-form-data' });
     return (
-        <Card shadow="sm" padding="lg" radius="md" style={{ width: '100mm', height: '60mm' }} >
+        <Card shadow="sm" padding="lg" radius="md" w={{ base: '90mm', md: '100mm' }} h={'60mm'} >
             <Group justify='space-between' mb="sm">
                 <Avatar
                     src={formData.profile_pic}

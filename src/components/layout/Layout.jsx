@@ -30,7 +30,7 @@ function Layout() {
                     size="xl"
                     styles={(theme) => ({
                         width: '100%',
-                        [`@media (minWidth: ${theme.breakpoints.md}px)`]: {
+                        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
                             maxWidth: '900px',
                         },
                     })}

@@ -107,7 +107,7 @@ function SignupForm() {
                                     <Box>
 
                                         <Box mt={'4'}>
-                                            <ScrollArea h={{ base: height + 10, md: height - 30 }} scrollbarSize={2} scrollbars="y" type="never"  >
+                                            <ScrollArea h={{ base: height + 11, md: height - 30 }} scrollbarSize={2} scrollbars="y" type="never"  >
                                                 <Grid columns={12} gutter={{ base: 6 }} >
                                                     {/* 1st column */}
                                                     <Grid.Col span={{ base: 12, sm: 12, md: 6, lg: 6 }}    >
@@ -667,7 +667,7 @@ function SignupForm() {
                                                 </Grid>
                                             </ScrollArea>
                                         </Box>
-                                        <Box pl={`sm`} pb={{ base: 'sm', sm: 'sm', md: 'xs' }} pr={8} pt={'xs'} className={'boxBackground borderRadiusAll'}  >
+                                        <Box pl={`sm`} pb={{ base: 'xs', sm: 'xs', md: 'xs' }} pr={8} pt={'sm'} className={'boxBackground borderRadiusAll'}  >
                                             <Grid span={12}>
                                                 <Grid.Col >
                                                     <Stack right align="flex-end" h={25}>

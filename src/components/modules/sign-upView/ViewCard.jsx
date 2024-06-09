@@ -52,7 +52,7 @@ function ViewCard() {
 
     return (
         <Box pt={2}>
-            <ScrollArea p={0} h={{ base: height + 70, md: height + 35 }} scrollbarSize={2} scrollbars="y" type="never" mb={2} className={'boxBackground borderRadiusAll'}>
+            <ScrollArea p={0} h={{ base: height + 70, md: height + 32 }} scrollbarSize={2} scrollbars="y" type="never" mb={2} className={'boxBackground borderRadiusAll'}>
                 <Flex justify="center" align="center" bg='var(--mantine-color-blue-9)'>
                     <Card
                         shadow="xl"
@@ -125,15 +125,16 @@ function ViewCard() {
 
                 <Flex justify="center" align="center"  >
 
-                    <Card shadow="md" w={isMobile ? '95%' : 500} pt={0} className={'boxBackground borderRadiusAll'} mb={8} mt='8' pl={'md'} pr={'md'}>
-                        <Text mt="md" size="sm" style={{ color: 'dimmed' }}>
+                    <Card shadow="md" w={isMobile ? '95%' : 500} pt={0} className={'boxBackground borderRadiusAll'} mb={8} mt='4' pl={'md'} pr={'md'}>
+                        <Text mt="md" size="md" style={{ color: 'dimmed' }} ml={40}>
                             {formData.about}
                         </Text>
-                        <Title order={4} mt="md">
+                        <Title order={3} mt="md" ml={'40'}>
                             {t('PersonalInformation')}
                         </Title>
                         <Divider my="xs" size="xs" />
                         <Grid columns={12} gutter={0}>
+                            <Grid.Col span={1}></Grid.Col>
                             <Grid.Col span={1}>
                                 <Flex justify="flex-start" align="center" pt="xs">
                                     <ActionIcon style={{ backgroundColor: 'var(--mantine-color-gray-7)', borderRadius: '100%' }} size="lg" p={6}>
@@ -143,7 +144,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={.5}>
                             </Grid.Col>
-                            <Grid.Col span={10.5}>
+                            <Grid.Col span={9.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }}>
                                     <Text fw={500} size="lg">
                                         {t('Name')}
@@ -156,7 +157,9 @@ function ViewCard() {
                             </Grid.Col>
                         </Grid>
                         <Grid columns={12} gutter={0} mt="xs">
+                            <Grid.Col span={1}></Grid.Col>
                             <Grid.Col span={1}>
+                                <Grid.Col span={1}></Grid.Col>
                                 <Flex justify="flex-start" align="center" pt="xs">
                                     <ActionIcon style={{ backgroundColor: 'var(--mantine-color-gray-7)', borderRadius: '100%' }} size="lg" p={6}>
                                         <IconMailOpenedFilled style={{ width: '100%', height: '100%' }} stroke={1} />
@@ -165,7 +168,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={.5}>
                             </Grid.Col>
-                            <Grid.Col span={10.5}>
+                            <Grid.Col span={9.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }}>
                                     <Text fw={500} size="lg">
                                         {t('Designation')}
@@ -178,6 +181,7 @@ function ViewCard() {
                             </Grid.Col>
                         </Grid>
                         <Grid columns={12} gutter={0} mt="xs">
+                            <Grid.Col span={1}></Grid.Col>
                             <Grid.Col span={1}>
                                 <Flex justify="flex-start" align="center" pt="xs">
                                     <ActionIcon style={{ backgroundColor: 'var(--mantine-color-gray-7)', borderRadius: '100%' }} size="lg" p={6}>
@@ -187,7 +191,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={.5}>
                             </Grid.Col>
-                            <Grid.Col span={10.5}>
+                            <Grid.Col span={9.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }}>
                                     <Text fw={500} size="lg">
                                         {t('Mobile')}
@@ -200,6 +204,7 @@ function ViewCard() {
                             </Grid.Col>
                         </Grid>
                         <Grid columns={12} gutter={0} mt="xs">
+                            <Grid.Col span={1}></Grid.Col>
                             <Grid.Col span={1}>
                                 <Flex justify="flex-start" align="center" pt="xs">
                                     <ActionIcon style={{ backgroundColor: 'var(--mantine-color-gray-7)', borderRadius: '100%' }} size="lg" p={6}>
@@ -209,7 +214,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={.5}>
                             </Grid.Col>
-                            <Grid.Col span={10.5}>
+                            <Grid.Col span={9.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }}>
                                     <Text fw={500} size="lg">
                                         {t('Email')}
@@ -222,11 +227,12 @@ function ViewCard() {
                             </Grid.Col>
                         </Grid>
 
-                        <Title order={4} mt="md">
+                        <Title order={3} mt="md" ml={40}>
                             {t('OrganizationInformation')}
                         </Title>
                         <Divider my="xs" size="xs" />
                         <Grid columns={12} gutter={0} mt="xs">
+                            <Grid.Col span={1}></Grid.Col>
                             <Grid.Col span={1}>
                                 <Flex justify="flex-start" align="center" pt="xs">
                                     <ActionIcon style={{ backgroundColor: 'var(--mantine-color-gray-7)', borderRadius: '100%' }} size="lg" p={6}>
@@ -236,7 +242,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={.5}>
                             </Grid.Col>
-                            <Grid.Col span={10.5}>
+                            <Grid.Col span={9.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }}>
                                     <Text fw={500} size="lg">
                                         {t('CompanyName')}
@@ -249,6 +255,7 @@ function ViewCard() {
                             </Grid.Col>
                         </Grid>
                         <Grid columns={12} gutter={0} mt="xs">
+                            <Grid.Col span={1}></Grid.Col>
                             <Grid.Col span={1}>
                                 <Flex justify="flex-start" align="center" pt="xs">
                                     <ActionIcon style={{ backgroundColor: 'var(--mantine-color-gray-7)', borderRadius: '100%' }} size="lg" p={6}>
@@ -258,7 +265,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={.5}>
                             </Grid.Col>
-                            <Grid.Col span={10.5}>
+                            <Grid.Col span={9.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }}>
                                     <Text fw={500} size="lg">
                                         {t('Email')}
@@ -271,6 +278,7 @@ function ViewCard() {
                             </Grid.Col>
                         </Grid>
                         <Grid columns={12} gutter={0} mt="xs">
+                            <Grid.Col span={1}></Grid.Col>
                             <Grid.Col span={1}>
                                 <Flex justify="flex-start" align="center" pt="xs">
                                     <ActionIcon style={{ backgroundColor: 'var(--mantine-color-gray-7)', borderRadius: '100%' }} size="lg" p={6}>
@@ -280,7 +288,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={.5}>
                             </Grid.Col>
-                            <Grid.Col span={10.5}>
+                            <Grid.Col span={9.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }}>
                                     <Text fw={500} size="lg">
                                         {t('WebAddress')}
@@ -293,6 +301,7 @@ function ViewCard() {
                             </Grid.Col>
                         </Grid>
                         <Grid columns={12} gutter={0} mt="xs">
+                            <Grid.Col span={1}></Grid.Col>
                             <Grid.Col span={1}>
                                 <Flex justify="flex-start" align="center" pt="xs">
                                     <ActionIcon style={{ backgroundColor: 'var(--mantine-color-gray-7)', borderRadius: '100%' }} size="lg" p={6}>
@@ -302,7 +311,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={.5}>
                             </Grid.Col>
-                            <Grid.Col span={10.5}>
+                            <Grid.Col span={9.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }}>
                                     <Text fw={500} size="lg">
                                         {t('Address')}
@@ -322,7 +331,7 @@ function ViewCard() {
                                 </Text>
                             </Grid.Col>
                         </Grid>
-                        <Flex justify="flex-start" align="center" mt="xs" ml="xl" pl="lg">
+                        <Flex justify="flex-start" align="center" mt="xs" ml="xl" >
                             <Anchor href={formData.facebook} target="_blank" rel="noopener noreferrer">
                                 <Image height={isMobile ? 30 : 50} fit="contain" src={facebook} alt="Facebook" />
                             </Anchor>
@@ -377,7 +386,7 @@ function ViewCard() {
                     </Card>
                 </Flex>
             </ScrollArea>
-            <Box className={'boxBackground borderRadiusAll'} pb={'sm'} pt={6} pr={'sm'} >
+            <Box pl={`sm`} pb={{ base: 'xs', sm: 'xs', md: 'xs' }} pr={8} pt={'xs'} className={'boxBackground borderRadiusAll'}  >
                 <Grid span={12}>
                     <Grid.Col>
                         <Group justify="flex-end" h={{ base: 30, md: 25 }} >
@@ -394,12 +403,12 @@ function ViewCard() {
                                                     <Text size="md"> {t("FormConfirmationTitle")}</Text>
                                                 ),
                                                 children: (
-                                                    <Text size="sm"> {t("FormConfirmationMessage")}</Text>
+                                                    <Text size="sm"> {t("FormConfirmationMessageEdit")}</Text>
                                                 ),
                                                 labels: { confirm: t('Submit'), cancel: t('Cancel') }, confirmProps: { color: 'orange.6' },
                                                 onCancel: () => console.log('Cancel'),
                                                 onConfirm: () => {
-                                                    navigate('/sign-up-edit');
+                                                    navigate('/sign-upEdit');
                                                     console.log('ok');
                                                 },
                                             })}
@@ -420,7 +429,7 @@ function ViewCard() {
                                                     <Text size="md"> {t("FormConfirmationTitle")}</Text>
                                                 ),
                                                 children: (
-                                                    <Text size="sm"> {t("FormConfirmationMessage")}</Text>
+                                                    <Text size="sm"> {t("FormConfirmationMessagePrint")}</Text>
                                                 ),
                                                 labels: { confirm: t('Submit'), cancel: t('Cancel') }, confirmProps: { color: 'orange.6' },
                                                 onCancel: () => console.log('Cancel'),
@@ -432,7 +441,7 @@ function ViewCard() {
                                         >
                                             <Flex direction={`column`} gap={0}>
                                                 <Text fz={12} fw={400}>
-                                                    {t("PrintViewCard")}
+                                                    {t("ViewCard")}
                                                 </Text>
                                             </Flex>
                                         </Button>
@@ -444,6 +453,7 @@ function ViewCard() {
                     </Grid.Col>
                 </Grid>
             </Box>
+
         </Box >
     );
 }
