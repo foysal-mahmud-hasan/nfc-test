@@ -126,10 +126,10 @@ function ViewCard() {
                 <Flex justify="center" align="center"  >
 
                     <Card shadow="md" w={isMobile ? '95%' : 500} pt={0} className={'boxBackground borderRadiusAll'} mb={8} mt='4' pl={'md'} pr={'md'}>
-                        <Text mt="md" size="md" style={{ color: 'dimmed' }} ml={40}>
+                        <Text mt="md" size="md" style={{ color: 'dimmed' }} ml={20}>
                             {formData.about}
                         </Text>
-                        <Title order={3} mt="md" ml={'40'}>
+                        <Title order={4} mt="md" ml={'20'}>
                             {t('PersonalInformation')}
                         </Title>
                         <Divider my="xs" size="xs" />
@@ -227,7 +227,7 @@ function ViewCard() {
                             </Grid.Col>
                         </Grid>
 
-                        <Title order={3} mt="md" ml={40}>
+                        <Title order={4} mt="md" ml={20}>
                             {t('OrganizationInformation')}
                         </Title>
                         <Divider my="xs" size="xs" />
@@ -386,7 +386,7 @@ function ViewCard() {
                     </Card>
                 </Flex>
             </ScrollArea>
-            <Box pl={`sm`} pb={{ base: 'xs', sm: 'xs', md: 'xs' }} pr={8} pt={'xs'} className={'boxBackground borderRadiusAll'}  >
+            <Box pl={`sm`} pb={{ base: 'xs', sm: 'sm', md: 'sm' }} pr={8} pt={'xs'} className={'boxBackground borderRadiusAll'}  >
                 <Grid span={12}>
                     <Grid.Col>
                         <Group justify="flex-end" h={{ base: 30, md: 25 }} >

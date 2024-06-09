@@ -5,6 +5,7 @@
   "Name": "Name",
   "Designation": "Designation",
   "Mobile": "Mobile",
+  "Phone": "Phone",
   "OrganizationInformation": "Organization Information",
   "CompanyName": "Company Name",
   "WebAddress": "Web Address",
@@ -18,5 +19,14 @@
   "Cancel": "Cancel",
   "Edit": "Edit",
   "FormConfirmationMessagePrint": "Please confirm to proceed to card Design section",
-  "ViewCard": "View Card Designs"
+  "ViewCard": "View Card Designs",
+  "WelcomeSignup": "Welcome to Signup",
+  "NameValidateMessage": "NameValidateMessage",
+  "X(Twitter)Account": "X (Twitter) Account",
+  "TwitterAccount": "X (Twitter) Account",
+  "LinkedinAccount": "Linkedin Account",
+  "FacebookAccount": "Facebook Account",
+  "InstaAccount": "Instagram Account",
+  "AboutYourself": "About Yourself",
+  "ProfilePic": "Profile Pic"
 }
