@@ -39,7 +39,7 @@ import facebook from '../../../assets/images/facebook.png';
 import twitter from '../../../assets/images/twitter.png';
 import linkedin from '../../../assets/images/linkedin.png';
 import instagram from '../../../assets/images/instagram.png';
-import CardGeneratorIndex from "../v-card.jsx/generateAndDownloadVCard";
+import CardGeneratorIndex from "../v-card/generateAndDownloadVCard";
 
 
 function ViewCard() {
@@ -158,7 +158,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={10.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }} pl={'lg'}>
-                                    <Text fw={500} size="lg">
+                                    <Text fw={700} size="lg">
                                         {t('Name')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }}>
@@ -182,7 +182,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={10.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }} pl={'lg'}>
-                                    <Text fw={500} size="lg">
+                                    <Text fw={700} size="lg">
                                         {t('Designation')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }}>
@@ -205,7 +205,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={10.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }} pl={'lg'}>
-                                    <Text fw={500} size="lg">
+                                    <Text fw={700} size="lg">
                                         {t('Mobile')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }}>
@@ -228,7 +228,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={10.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }} pl={'lg'}>
-                                    <Text fw={500} size="lg">
+                                    <Text fw={700} size="lg">
                                         {t('Email')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }}>
@@ -255,7 +255,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={10.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }} pl={'lg'}>
-                                    <Text fw={500} size="lg">
+                                    <Text fw={700} size="lg">
                                         {t('CompanyName')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }} >
@@ -278,7 +278,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={10.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }} pl={'lg'}>
-                                    <Text fw={500} size="lg">
+                                    <Text fw={700} size="lg">
                                         {t('Email')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }}>
@@ -301,7 +301,7 @@ function ViewCard() {
                             </Grid.Col>
                             <Grid.Col span={10.5}>
                                 <Flex justify="flex-start" direction="column" ml={{ base: 'xs', sm: 0, md: 0 }} pl={'lg'}>
-                                    <Text fw={500} size="lg">
+                                    <Text fw={700} size="lg">
                                         {t('WebAddress')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }}>
