@@ -79,12 +79,11 @@ export default function Header() {
             })}
         >
             <Box bg={'white'} pos={`relative`}>
-                <Group justify="space-between" h="100%" bg={'white'} pr={'xs'} className="borderRadiusHeader">
+                <Group justify="space-between"  bg={'white'} h={40} className="borderRadiusHeader">
                     <Link to="/">
                         <Image h={40} fit={'contain'} maw={{ base: '50%', md: '60%' }} src={LazyCoders} alt="Facebook" />
                     </Link>
-                    <Group>
-                        {isHomePage && !isClicked && (
+                    {isHomePage && !isClicked && (
                             <Button
                                 size="xs"
                                 color="orange.6"
@@ -99,8 +98,7 @@ export default function Header() {
                                     </Text>
                                 </Flex>
                             </Button>
-                        )}
-                    </Group>
+                        )}                        
                 </Group>
 
             </Box>
