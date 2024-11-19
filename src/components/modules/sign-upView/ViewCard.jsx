@@ -419,7 +419,7 @@ function ViewCard() {
                                             // type="submit"
                                             id="EntityFormSubmit3"
                                             onClick={() => {
-                                                navigate('/sign-upEdit');
+                                                navigate('/edit');
                                             }}
                                         >
                                             <Flex direction={`column`} gap={0}>
