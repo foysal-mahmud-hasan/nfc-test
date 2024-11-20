@@ -2,22 +2,22 @@ import { Card, Avatar, Text, Group, Box, Image, Divider, Flex, BackgroundImage, 
 import { IconPhone, IconMail, IconMapPin } from '@tabler/icons-react';
 import { readLocalStorageValue } from '@mantine/hooks';
 
-function SimpleCard() {
-    const formData = readLocalStorageValue({ key: 'signup-form-data' });
+function SimpleCard(props) {
+    const {formValues, id} = props;
     return (
         <Card shadow="lg" padding="xs" radius="md" w={{ base: '90mm', md: '100mm' }} h={'60mm'} >
 
             <div style={{ position: 'start', width: '100%', textAlign: 'start' }}>
                 <Avatar
-                    src={formData.profile_pic}
+                    src={formValues.profile_pic}
                     size={90}
                     radius="100%"
                     style={{ position: 'absolute', top: -40, left: '5%', transform: 'translateY(70%)', border: '1px solid white' }}
                 />
             </div>
             <Flex justify='flex-end' align='flex-end' direction='column'>
-                <Text weight={700} size="md">{formData.name}</Text>
-                <Text c="dimmed" size="sm">{formData.designation}</Text>
+                <Text weight={700} size="md">{formValues.name}</Text>
+                <Text c="dimmed" size="sm">{formValues.designation}</Text>
             </Flex>
             <Divider my="sm" />
             <Box>
@@ -34,7 +34,7 @@ function SimpleCard() {
                                     </Center>
                                 </Grid.Col>
                                 <Grid.Col span={10}>
-                                    <Text size="sm">{formData.phone}</Text>
+                                    <Text size="sm">{formValues.mobile}</Text>
                                 </Grid.Col>
                             </Grid>
                             <Grid columns={12} gutter={0}  >
@@ -44,7 +44,7 @@ function SimpleCard() {
                                     </Center>
                                 </Grid.Col>
                                 <Grid.Col span={10}>
-                                    <Text size="sm">{formData.email}</Text>
+                                    <Text size="sm">{formValues.email}</Text>
                                 </Grid.Col>
                             </Grid>
                             <Grid columns={12} gutter={0} >
@@ -55,7 +55,7 @@ function SimpleCard() {
                                     </Center>
                                 </Grid.Col>
                                 <Grid.Col span={10}>
-                                    <Text size="sm">{formData.address}</Text>
+                                    <Text size="sm">{formValues.address}</Text>
                                 </Grid.Col>
                             </Grid>
 
@@ -65,7 +65,7 @@ function SimpleCard() {
             </Box>
             <div style={{ position: 'relative', width: '100%', height: 40 }}>
                 <img
-                    src={formData.company_logo}
+                    src={formValues.company_logo}
                     alt="Company Logo"
                     style={{ position: 'absolute', right: '25%', height: '40px', width: '50%', objectFit: 'contain', bottom: '-50%', marginBottom: '10px' }}
                 />

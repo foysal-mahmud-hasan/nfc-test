@@ -2,18 +2,18 @@ import { Card, Avatar, Text, Group, Box, Divider, BackgroundImage, Image, Grid, 
 import { IconPhone, IconMail, IconMapPin } from '@tabler/icons-react';
 import { readLocalStorageValue } from '@mantine/hooks';
 
-function DesignFour() {
-    const formData = readLocalStorageValue({ key: 'signup-form-data' });
+function DesignFour(props) {
+    const {formValues, id} = props;
     return (
         <Card shadow="sm" padding="lg" radius="md" w={{ base: '90mm', md: '100mm' }} h={'60mm'} >
             <Group justify='space-between' mb="sm">
                 <Avatar
-                    src={formData.profile_pic}
+                    src={formValues.profile_pic}
                     size={50}
                     radius="xl"
                 />
                 <Image
-                    src={formData.company_logo}
+                    src={formValues.company_logo}
                     height={50}
                     maw={'50%'}
                     fit="contain"
@@ -22,8 +22,8 @@ function DesignFour() {
                 />
             </Group>
             <Flex justify="flex-start" align='flex-start' direction='column'>
-                <Text weight={700} size="md">{formData.name}</Text>
-                <Text c="dimmed" size="sm">{formData.designation}</Text>
+                <Text weight={700} size="md">{formValues.name}</Text>
+                <Text c="dimmed" size="sm">{formValues.designation}</Text>
             </Flex>
             <Box mt="sm">
                 <Grid columns={12} gutter={0}>
@@ -38,7 +38,7 @@ function DesignFour() {
                             justify={'flex-start'}
                             align={'flex-start'}
                             direction='row'>
-                            <Text size="sm">{formData.phone}</Text>
+                            <Text size="sm">{formValues.mobile}</Text>
                         </Flex>
                     </Grid.Col>
                 </Grid>
@@ -54,7 +54,7 @@ function DesignFour() {
                             justify={'flex-start'}
                             align={'flex-start'}
                             direction='row'>
-                            <Text size="sm">{formData.email}</Text>
+                            <Text size="sm">{formValues.email}</Text>
                         </Flex>
                     </Grid.Col>
                 </Grid>
@@ -70,7 +70,7 @@ function DesignFour() {
                             justify={'flex-start'}
                             align={'flex-start'}
                             direction='row'>
-                            <Text size="sm">{formData.address}</Text>
+                            <Text size="sm">{formValues.address}</Text>
                         </Flex>
                     </Grid.Col>
                 </Grid>

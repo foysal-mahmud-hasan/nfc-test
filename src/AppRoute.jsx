@@ -14,10 +14,10 @@ function AppRoute() {
       <Route path="/" element={<Layout />}>
         <Route path="login" element={<Login />} />
         <Route path="sign-up" element={<SignupIndex />} />
-        <Route path="view" element={<SignupViewIndex />} />
+        <Route path="view/:id" element={<SignupViewIndex />} />
         <Route path="edit/:id" element={<SignupEditIndex />} />
         <Route path="users" element={<SignupTableIndex />} />
-        <Route path="card-select" element={<SelectDesignIndex />} />
+        <Route path="card-select/:id" element={<SelectDesignIndex />} />
         <Route path="sign-upConfirmation" element={<ConfirmationIndex />} />
       </Route>
     </Routes>

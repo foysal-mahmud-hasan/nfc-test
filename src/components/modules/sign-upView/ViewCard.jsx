@@ -17,6 +17,7 @@ import {
     Avatar,
     Group,
     ActionIcon,
+    LoadingOverlay,
 } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { useTranslation } from 'react-i18next';
@@ -42,13 +43,14 @@ import instagram from '../../../assets/images/instagram.png';
 import CardGeneratorIndex from "../v-card/generateAndDownloadVCard";
 
 
-function ViewCard() {
+function ViewCard(props) {
+    const {formValues, spinner, id} = props;
+    console.log(formValues)
     const { t } = useTranslation();
     const values = readLocalStorageValue({ key: 'signup-form-data' });
     const { mainAreaHeight } = useOutletContext();
     const height = mainAreaHeight - 65;
-    const [opened, { open, close }] = useDisclosure(false);
-    const formData = readLocalStorageValue({ key: 'signup-form-data' });
+    const [opened, { open, close }] = useDisclosure(false);;
     const isMobile = useMediaQuery(`(max-width: ${em(750)})`);
     const navigate = useNavigate();
 
@@ -60,10 +62,16 @@ function ViewCard() {
 
     return (
         <Box pt={2}>
+            <LoadingOverlay
+                          visible={spinner}
+                          zIndex={1000}
+                          overlayProps={{ radius: "sm", blur: 2 }}
+                          loaderProps={{ color: "red.6" }}
+                        />
             <ScrollArea p={0} h={{ base: height + 70, md: height + 32 }} scrollbarSize={2} scrollbars="y" type="never" mb={2} className={'boxBackground borderRadiusAll'}>
-
-                <Flex justify="center" align="center" bg='var(--mantine-color-blue-9)'>
-
+            
+                <Flex justify="center" align="center" bg='var(--mantine-color-blue-9)' pt={4} pb={4}>
+                
                     <Card
                         shadow="xl"
                         pt="lg"
@@ -79,16 +87,16 @@ function ViewCard() {
                     >
 
                         <Flex justify="center" align="center" mt={{ md: "lg" }}>
-                            <Avatar src={formData.profile_pic} size={100} radius="100%" />
+                            <Avatar src={formValues?.profile_pic} size={100} radius="100%" />
                         </Flex>
                         <Text align="center" size="md" weight={500} mt="md" c={'dimmed'}>
-                            {formData.company_name}
+                            {formValues?.company_name}
                         </Text>
                         <Text align="center" size="xl" weight={500} style={{ color: 'white' }}>
-                            {formData.name}
+                            {formValues?.name}
                         </Text>
                         <Text align="center" style={{ color: 'white' }} size="sm">
-                            {formData.designation}
+                            {formValues?.designation}
                         </Text>
 
                         <Grid columns={12} gutter={0} pt="md">
@@ -162,7 +170,7 @@ function ViewCard() {
                                         {t('Name')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }}>
-                                        {formData.name}
+                                        {formValues?.name}
                                     </Text>
                                 </Flex>
                                 <Divider mt="xs" />
@@ -186,7 +194,7 @@ function ViewCard() {
                                         {t('Designation')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }}>
-                                        {formData.designation}
+                                        {formValues?.designation}
                                     </Text>
                                 </Flex>
                                 <Divider mt="xs" />
@@ -209,7 +217,7 @@ function ViewCard() {
                                         {t('Mobile')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }}>
-                                        {formData.phone}
+                                        {formValues?.mobile}
                                     </Text>
                                 </Flex>
                                 <Divider mt="xs" />
@@ -232,7 +240,7 @@ function ViewCard() {
                                         {t('Email')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }}>
-                                        {formData.email}
+                                        {formValues?.email}
                                     </Text>
                                 </Flex>
                                 <Divider mt="xs" />
@@ -259,7 +267,7 @@ function ViewCard() {
                                         {t('CompanyName')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }} >
-                                        {formData.company_name}
+                                        {formValues?.company_name}
                                     </Text>
                                 </Flex>
                                 <Divider mt="xs" />
@@ -282,7 +290,7 @@ function ViewCard() {
                                         {t('Email')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }}>
-                                        {formData.company_email}
+                                        {formValues?.company_email}
                                     </Text>
                                 </Flex>
                                 <Divider mt="xs" />
@@ -305,7 +313,7 @@ function ViewCard() {
                                         {t('WebAddress')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }}>
-                                        {formData.website}
+                                        {formValues?.website}
                                     </Text>
                                 </Flex>
                                 <Divider mt="xs" />
@@ -328,7 +336,7 @@ function ViewCard() {
                                         {t('Address')}
                                     </Text>
                                     <Text style={{ color: 'dimmed' }}>
-                                        {formData.address}
+                                        {formValues?.address}
                                     </Text>
                                 </Flex>
 
@@ -348,16 +356,16 @@ function ViewCard() {
 
                         </Box>
                         <Flex justify="center" align="center" mt="sm" ml="xl" >
-                            <Anchor href={formData.facebook} target="_blank" rel="noopener noreferrer">
+                            <Anchor href={formValues?.facebook} target="_blank" rel="noopener noreferrer">
                                 <Image height={isMobile ? 30 : 50} fit="contain" src={facebook} alt="Facebook" />
                             </Anchor>
-                            <Anchor href={formData.linkedinAccount} target="_blank" rel="noopener noreferrer">
+                            <Anchor href={formValues?.linkedinAccount} target="_blank" rel="noopener noreferrer">
                                 <Image height={isMobile ? 30 : 50} fit="contain" src={linkedin} alt="LinkedIn" />
                             </Anchor>
-                            <Anchor href={formData.instaAccount} target="_blank" rel="noopener noreferrer">
+                            <Anchor href={formValues?.instaAccount} target="_blank" rel="noopener noreferrer">
                                 <Image height={isMobile ? 30 : 50} fit="contain" src={instagram} alt="Instagram" />
                             </Anchor>
-                            <Anchor href={formData.twitterAccount} target="_blank" rel="noopener noreferrer">
+                            <Anchor href={formValues?.twitterAccount} target="_blank" rel="noopener noreferrer">
                                 <Image height={isMobile ? 30 : 50} fit="contain" src={twitter} alt="Twitter" />
                             </Anchor>
                         </Flex>
@@ -419,7 +427,7 @@ function ViewCard() {
                                             // type="submit"
                                             id="EntityFormSubmit3"
                                             onClick={() => {
-                                                navigate('/edit');
+                                                navigate('/login');
                                             }}
                                         >
                                             <Flex direction={`column`} gap={0}>
@@ -443,7 +451,7 @@ function ViewCard() {
                                                 labels: { confirm: t('Submit'), cancel: t('Cancel') }, confirmProps: { color: 'orange.6' },
                                                 onCancel: () => console.log('Cancel'),
                                                 onConfirm: () => {
-                                                    navigate('/card-select');
+                                                    navigate(`/card-select/${id}`);
                                                     // console.log('ok');
                                                 },
                                             })}

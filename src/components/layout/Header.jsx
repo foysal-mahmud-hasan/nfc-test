@@ -53,9 +53,9 @@ export default function Header() {
     const location = useLocation(); // Add this line to get the current location
     const theme = useMantineTheme();
 
-    useEffect(() => {
-        console.log('Current location:', location.pathname);
-    }, [location]);
+    // useEffect(() => {
+    //     console.log('Current location:', location.pathname);
+    // }, [location]);
 
     const [isClicked, setIsClicked] = useState(false);
     const path = '/sign-up'
