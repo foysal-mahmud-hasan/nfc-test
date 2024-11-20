@@ -9,12 +9,12 @@ function BoldCard(props) {
             <Card shadow="lg" padding="sm" radius="md" w={{ base: '90mm', md: '100mm' }} h={'60mm'} >
                 <div style={{ position: 'relative', width: '100%', height: 70 }}>
                     <img
-                        src={formValues.company_logo}
+                        src={formValues?.company_logo}
                         alt="Company Logo"
                         style={{ position: 'absolute', right: 0, height: '50px', width: '50%', objectFit: 'contain', transform: 'translateY(-10%)', }}
                     />
                     <Avatar
-                        src={formValues.profile_pic}
+                        src={formValues?.profile_pic}
                         size={80}
                         radius="100%"
                         style={{ position: 'absolute', top: '60%', left: 0, transform: 'translateY(-25%)', border: '3px solid white' }}
@@ -22,8 +22,8 @@ function BoldCard(props) {
                 </div>
                 <Box mt={'lg'}>
                     <Flex justify={'flex-end'} align={'flex-end'} direction={'column'}>
-                        <Text weight={900} size="md">{formValues.name}</Text>
-                        <Text c="dimmed" size="sm">{formValues.designation}</Text>
+                        <Text weight={900} size="md">{formValues?.name}</Text>
+                        <Text c="dimmed" size="sm">{formValues?.designation}</Text>
                     </Flex>
                 </Box>
                 <Divider my="sm" />
@@ -33,7 +33,7 @@ function BoldCard(props) {
                             <IconPhone size={16} />
                         </Grid.Col>
                         <Grid.Col span={11} mt={2}>
-                            <Text size="xs" fw={700}>{formValues.mobile}</Text>
+                            <Text size="xs" fw={700}>{formValues?.mobile}</Text>
                         </Grid.Col>
                     </Grid>
                     <Grid columns={12} gutter={0}>
@@ -41,7 +41,7 @@ function BoldCard(props) {
                             <IconMail size={16} />
                         </Grid.Col>
                         <Grid.Col span={11} mt={2}>
-                            <Text size="xs" fw={700}>{formValues.email}</Text>
+                            <Text size="xs" fw={700}>{formValues?.email}</Text>
                         </Grid.Col>
                     </Grid>
                     <Grid columns={12} gutter={0}>
@@ -49,7 +49,7 @@ function BoldCard(props) {
                             <IconMapPin size={14} />
                         </Grid.Col>
                         <Grid.Col span={11} mt={2}>
-                            <Text size="xs" fw={700}>{formValues.address}</Text>
+                            <Text size="xs" fw={700}>{formValues?.address}</Text>
                         </Grid.Col>
                     </Grid>
 

@@ -23,8 +23,9 @@ import { useViewportSize } from "@mantine/hooks";
 import DesignSix from "../CardDesigns/DesignSix.jsx";
 import { useOutletContext } from "react-router-dom";
 import axios from "axios";
+import MainDesign from "../CardDesigns/MainDesign.jsx";
 
-function SelectDesignIndex({ setFormData }) {
+function SelectDesignIndex() {
   const { t, i18n } = useTranslation();
 
   const { mainAreaHeight } = useOutletContext();
@@ -103,6 +104,19 @@ function SelectDesignIndex({ setFormData }) {
                           overlayProps={{ radius: "sm", blur: 2 }}
                           loaderProps={{ color: "red.6" }}
                         />
+                        <Grid columns={12} gutter={"xl"} mt={"md"}>
+                          <Grid.Col span={12}>
+                            <Flex
+                              justify={"center"}
+                              align={"center"}
+                              mt={{ base: "md", md: 0 }}
+                            >
+                              <Box onClick={() => handleCardClick("BoldCard")}>
+                                <MainDesign formValues={formValues} id={id} />
+                              </Box>
+                            </Flex>
+                          </Grid.Col>
+                        </Grid>
                         <Grid columns={12} gutter={"xl"} mt={"md"}>
                           <Grid.Col span={{ base: 12, md: 6 }}>
                             <Flex

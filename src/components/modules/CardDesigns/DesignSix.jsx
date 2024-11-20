@@ -12,15 +12,15 @@ function DesignSix(props) {
                 <Image
                     h={'30mm'}
                     w={'100%'}
-                    src={formValues.profile_pic}
+                    src={formValues?.profile_pic}
                     fit='cover'
                 >
                 </Image>
 
             </Box>
             <Box ta="center" mt={'xl'}>
-                <Text weight={700} size="md" color="#343A40">{formValues.name}</Text>
-                <Text c="dimmed" size="sm">{formValues.designation}</Text>
+                <Text weight={700} size="md" color="#343A40">{formValues?.name}</Text>
+                <Text c="dimmed" size="sm">{formValues?.designation}</Text>
             </Box>
             <Divider my="sm" />
             <Box >
@@ -29,7 +29,7 @@ function DesignSix(props) {
                         <IconPhone size={14} />
                     </Grid.Col>
                     <Grid.Col span={11} mt={2}>
-                        <Text size="xs" fw={700}>{formValues.mobile}</Text>
+                        <Text size="xs" fw={700}>{formValues?.mobile}</Text>
                     </Grid.Col>
                 </Grid>
                 <Grid columns={12} gutter={1}>
@@ -37,7 +37,7 @@ function DesignSix(props) {
                         <IconMail size={14} />
                     </Grid.Col>
                     <Grid.Col span={11} mt={2}>
-                        <Text size="xs" fw={700}>{formValues.email}</Text>
+                        <Text size="xs" fw={700}>{formValues?.email}</Text>
                     </Grid.Col>
                 </Grid>
                 <Grid columns={12} gutter={1}>
@@ -45,7 +45,7 @@ function DesignSix(props) {
                         <IconMapPin size={14} />
                     </Grid.Col>
                     <Grid.Col span={11} mt={2}>
-                        <Text size="xs" fw={700}>{formValues.address}</Text>
+                        <Text size="xs" fw={700}>{formValues?.address}</Text>
                     </Grid.Col>
                 </Grid>
             </Box>
@@ -57,7 +57,7 @@ function DesignSix(props) {
             >
                 <Box sx={{ textAlign: 'center', backgroundColor: '#343A40' }}>
                     <Center >
-                        <Image src={formValues.company_logo} height={60} fit="contain" alt="Company Logo" maw={'80%'} />
+                        <Image src={formValues?.company_logo} height={60} fit="contain" alt="Company Logo" maw={'80%'} />
                     </Center>
                 </Box>
             </Stack>

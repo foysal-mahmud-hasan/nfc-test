@@ -9,15 +9,15 @@ function SimpleCard(props) {
 
             <div style={{ position: 'start', width: '100%', textAlign: 'start' }}>
                 <Avatar
-                    src={formValues.profile_pic}
+                    src={formValues?.profile_pic}
                     size={90}
                     radius="100%"
                     style={{ position: 'absolute', top: -40, left: '5%', transform: 'translateY(70%)', border: '1px solid white' }}
                 />
             </div>
             <Flex justify='flex-end' align='flex-end' direction='column'>
-                <Text weight={700} size="md">{formValues.name}</Text>
-                <Text c="dimmed" size="sm">{formValues.designation}</Text>
+                <Text weight={700} size="md">{formValues?.name}</Text>
+                <Text c="dimmed" size="sm">{formValues?.designation}</Text>
             </Flex>
             <Divider my="sm" />
             <Box>
@@ -34,7 +34,7 @@ function SimpleCard(props) {
                                     </Center>
                                 </Grid.Col>
                                 <Grid.Col span={10}>
-                                    <Text size="sm">{formValues.mobile}</Text>
+                                    <Text size="sm">{formValues?.mobile}</Text>
                                 </Grid.Col>
                             </Grid>
                             <Grid columns={12} gutter={0}  >
@@ -44,7 +44,7 @@ function SimpleCard(props) {
                                     </Center>
                                 </Grid.Col>
                                 <Grid.Col span={10}>
-                                    <Text size="sm">{formValues.email}</Text>
+                                    <Text size="sm">{formValues?.email}</Text>
                                 </Grid.Col>
                             </Grid>
                             <Grid columns={12} gutter={0} >
@@ -55,7 +55,7 @@ function SimpleCard(props) {
                                     </Center>
                                 </Grid.Col>
                                 <Grid.Col span={10}>
-                                    <Text size="sm">{formValues.address}</Text>
+                                    <Text size="sm">{formValues?.address}</Text>
                                 </Grid.Col>
                             </Grid>
 
@@ -65,7 +65,7 @@ function SimpleCard(props) {
             </Box>
             <div style={{ position: 'relative', width: '100%', height: 40 }}>
                 <img
-                    src={formValues.company_logo}
+                    src={formValues?.company_logo}
                     alt="Company Logo"
                     style={{ position: 'absolute', right: '25%', height: '40px', width: '50%', objectFit: 'contain', bottom: '-50%', marginBottom: '10px' }}
                 />
