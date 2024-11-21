@@ -62,17 +62,17 @@ function FooterNavbar() {
     const socialMediaSlides = [
         <Carousel.Slide key={LearnSphere}>
             <Anchor href={''} target="_blank" rel="noopener noreferrer">
-                <Image h={{ base: 50, md: 80 }} fit="contain" src={LearnSphere} alt="Instagram" mt={{ md: 'xs' }} />
+                <Image h={{ base: 50, md: 60 }} fit="contain" src={LearnSphere} alt="Instagram" mt={{ md: 'xs' }} />
             </Anchor>
         </Carousel.Slide>,
         <Carousel.Slide key={Appza}>
             <Anchor href={''} target="_blank" rel="noopener noreferrer">
-                <Image h={{ base: 50, md: 80 }} fit="contain" src={Appza} alt="Facebook" mt={{ md: 'sm' }} />
+                <Image h={{ base: 50, md: 60 }} fit="contain" src={Appza} alt="Facebook" mt={{ md: 'xs' }} />
             </Anchor>
         </Carousel.Slide>,
         <Carousel.Slide key={LazyTasks}>
             <Anchor href={''} target="_blank" rel="noopener noreferrer">
-                <Image h={{ base: 50, md: 80 }} fit="contain" src={LazyTasks} alt="LinkedIn" mt={{ md: 'xs' }} />
+                <Image h={{ base: 50, md: 60 }} fit="contain" src={LazyTasks} alt="LinkedIn" mt={{ md: 'xs' }} />
             </Anchor>
         </Carousel.Slide>,
     ];

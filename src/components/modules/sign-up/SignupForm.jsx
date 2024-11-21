@@ -190,7 +190,7 @@ function SignupForm() {
                   <Box>
                     <Box mt={"4"}>
                       <ScrollArea
-                        h={{ base: height + 11, md: height - 30 }}
+                        h={{ base: height + 11, md: height - 10 }}
                         scrollbarSize={2}
                         scrollbars="y"
                         type="never"
