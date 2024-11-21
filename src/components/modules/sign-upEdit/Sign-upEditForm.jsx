@@ -18,6 +18,7 @@ import {
   Loader,
   LoadingOverlay,
   useMantineTheme,
+  Modal,
 } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import {
@@ -42,7 +43,7 @@ import axios from "axios";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 
 function SignupEditForm(props) {
-  const { formValues, spinner, id } = props;
+  const { formValues, spinner, id, setSpinner } = props;
   const { t, i18n } = useTranslation();
 
   const { mainAreaHeight } = useOutletContext();
@@ -104,9 +105,45 @@ function SignupEditForm(props) {
       if (companyLogoPreviewImage) URL.revokeObjectURL(companyLogoPreviewImage);
     };
   }, [profilePreviewImage, companyLogoPreviewImage]);
-
+  const [confirmModal, setConfirmModal] = useState(false);
   return (
     <Box>
+      <Modal opened={confirmModal} centered>
+        <Flex
+          className="borderRadiusAll"
+          h={height / 5}
+          justify={"center"}
+          align={"center"}
+          direction={"column"}
+        >
+          <Text ta={"center"} fz={14} fw={600} p={"xs"}>
+            Successfully Edited.
+          </Text>
+          <Text ta={"center"} fz={12} fw={600} p={"xs"}>
+            Go back to to card View
+          </Text>
+        </Flex>
+        <Flex
+          className="borderRadiusAll"
+          justify={"center"}
+          align={"center"}
+          pb={"xs"}
+          mt={"4"}
+        >
+          <Button
+            color="orange.5"
+            size="xs"
+            mt={"xs"}
+            onClick={() => {
+              setConfirmModal(false);
+              form.reset();
+              navigate(`/view/${id}`);
+            }}
+          >
+            Accept
+          </Button>
+        </Flex>
+      </Modal>
       <form
         onSubmit={form.onSubmit((values) => {
           const formValue = {};
@@ -151,7 +188,8 @@ function SignupEditForm(props) {
             confirmProps: { color: "red" },
             onCancel: () => console.log("Cancel"),
             onConfirm: () => {
-              console.log(values);
+              // console.log(values);
+              setSpinner(true);
               axios
                 .post(
                   `${
@@ -166,15 +204,26 @@ function SignupEditForm(props) {
                   }
                 )
                 .then((response) => {
-                  console.log(response);
-                  // notifications.show({
-                  //   color: 'teal',
-                  //   title: t('CreateSuccessfully'),
-                  //   icon: <IconCheck size="1rem" />,
-                  //   autoClose: 2000,
-                  // });
-                  // form.reset();
+                  setSpinner(false);
+                  // console.log(response.data.status);
+                  if (response.data.status === 200) {
+                    notifications.show({
+                      color: "teal",
+                      title: t("CreateSuccessfully"),
+                      icon: <IconCheck size="1rem" />,
+                      autoClose: 5000,
+                    });
+                  }
+
+                  notifications.show({
+                    color: "teal",
+                    title: t("Updated Successfully"),
+                    icon: <IconCheck size="1rem" />,
+                    autoClose: 2000,
+                  });
+                  form.reset();
                   // navigate(`/sign-up/${id}`);
+                  setConfirmModal(true);
                 })
                 .catch((error) => {
                   notifications.show({
@@ -728,7 +777,7 @@ function SignupEditForm(props) {
                                             }}
                                           >
                                             <TextAreaForm
-                                              tooltip={t("Address")}
+                                              tooltip={t("About Self")}
                                               placeholder={t("About Self")}
                                               required={true}
                                               nextField={"company_name"}

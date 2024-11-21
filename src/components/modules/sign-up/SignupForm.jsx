@@ -96,7 +96,7 @@ function SignupForm() {
       <Modal opened={confirmModal} centered>
         <Flex
           className="borderRadiusAll"
-          h={height / 3}
+          h={height / 5}
           justify={"center"}
           align={"center"}
           direction={"column"}
@@ -107,7 +107,9 @@ function SignupForm() {
           <Text ta={"center"} fz={12} fw={600} p={"xs"}>
             Kindly check your mail for further instruction.
           </Text>
-          <Button
+        </Flex>
+        <Flex className="borderRadiusAll" justify={'center'} align={'center'} pb={'xs'} mt={'4'}>
+        <Button
             color="orange.5"
             size="xs"
             mt={"xs"}

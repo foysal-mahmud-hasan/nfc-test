@@ -40,6 +40,7 @@ function SignupEditIndex() {
         <>
           <Box mt={6}>
             <SignupEditForm
+              setSpinner={setSpinner}
               spinner={spinner}
               formValues={formValues}
               id={id}
