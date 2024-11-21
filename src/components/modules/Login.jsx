@@ -110,7 +110,7 @@ export default function Login() {
             mt="md"
             mb={80}
           >
-            {t("Welcome to NFC")}
+            {t("Welcome to NFC Login")}
           </Title>
           {errorMessage && (
             <Alert
