@@ -15,6 +15,8 @@ import {
   Tooltip,
   ActionIcon,
   Loader,
+  LoadingOverlay,
+  Modal,
 } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import {
@@ -88,9 +90,37 @@ function SignupForm() {
       },
     },
   });
-
+  const [confirmModal, setConfirmModal] = useState(false);
   return (
     <Box>
+      <Modal opened={confirmModal} centered>
+        <Flex
+          className="borderRadiusAll"
+          h={height / 3}
+          justify={"center"}
+          align={"center"}
+          direction={"column"}
+        >
+          <Text ta={"center"} fz={14} fw={600} p={"xs"}>
+            Successfully Registered.
+          </Text>
+          <Text ta={"center"} fz={12} fw={600} p={"xs"}>
+            Kindly check your mail for further instruction.
+          </Text>
+          <Button
+            color="orange.5"
+            size="xs"
+            mt={"xs"}
+            onClick={() => {
+              setConfirmModal(false);
+              form.reset();
+              navigate(`/`);
+            }}
+          >
+            Understand
+          </Button>
+        </Flex>
+      </Modal>
       <form
         onSubmit={form.onSubmit((values) => {
           const formValue = {};
@@ -129,6 +159,7 @@ function SignupForm() {
             confirmProps: { color: "red" },
             onCancel: () => console.log("Cancel"),
             onConfirm: () => {
+              setSpinner(true);
               axios
                 .post(
                   `${import.meta.env.VITE_API_GATEWAY_URL}/nfc-user/store`,
@@ -141,16 +172,17 @@ function SignupForm() {
                   }
                 )
                 .then((response) => {
-                  console.log(response);
-                  // notifications.show({
-                  //   color: 'teal',
-                  //   title: t('CreateSuccessfully'),
-                  //   icon: <IconCheck size="1rem" />,
-                  //   autoClose: 2000,
-                  // });
-
-                  // form.reset();
-                  // navigate(`/sign-up/${id}`);
+                  setSpinner(false);
+                  // console.log(response.data.status);
+                  if (response.data.status === 200) {
+                    notifications.show({
+                      color: "teal",
+                      title: t("CreateSuccessfully"),
+                      icon: <IconCheck size="1rem" />,
+                      autoClose: 5000,
+                    });
+                    setConfirmModal(true);
+                  }
                 })
                 .catch((error) => {
                   notifications.show({
@@ -195,6 +227,12 @@ function SignupForm() {
                         scrollbars="y"
                         type="never"
                       >
+                        <LoadingOverlay
+                          visible={spinner}
+                          zIndex={1000}
+                          overlayProps={{ radius: "sm", blur: 2 }}
+                          loaderProps={{ color: "red.6" }}
+                        />
                         <Grid columns={12} gutter={{ base: 6 }}>
                           {/* 1st column */}
                           <Grid.Col span={{ base: 12, sm: 12, md: 6, lg: 6 }}>
