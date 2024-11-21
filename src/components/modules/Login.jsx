@@ -95,14 +95,14 @@ export default function Login() {
   );
 
   return (
-    <Box className={classes.wrapper} h={height + 20}>
+    <Box className={classes.wrapper} h={height + 40}>
       <Flex
         component="form"
         onSubmit={form.onSubmit((values) => login(values))}
         justify={"center"}
         align={"center"}
       >
-        <Paper className={classes.form} radius={0} p={30} w={rem(500)}>
+        <Paper shadow="lg" className={classes.form} radius={0} p={30} w={{ base : rem(350), md : rem(500)}}>
           <Title
             order={2}
             className={classes.title}
