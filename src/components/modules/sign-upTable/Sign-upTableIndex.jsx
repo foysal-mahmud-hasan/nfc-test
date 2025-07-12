@@ -21,7 +21,6 @@ function SignupTableIndex() {
             {progress !== 100 && <Progress color="red" size={"xs"} striped animated value={progress} />}
             {progress === 100 &&
                 <>
-
                     <Box bg={'white'} mt={6} className={'borderRadiusAll'}>
                         <SignupTable />
                     </Box>

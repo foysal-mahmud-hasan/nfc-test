@@ -17,11 +17,7 @@ function Layout() {
     const mainAreaHeight = height - (headerHeight + footerHeight + 5);
 
     return (
-        <AppShell
-
-            padding="0"
-
-        >
+        <AppShell padding="0">
             <AppShell.Header height={headerHeight}>
                 <Header />
             </AppShell.Header>

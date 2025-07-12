@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Navigate, useOutletContext, useParams } from "react-router-dom";
+import  { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import {
   Button,
   rem,
@@ -9,8 +9,6 @@ import {
   ScrollArea,
   Text,
   Title,
-  Alert,
-  List,
   Stack,
   Tooltip,
   Center,
@@ -23,52 +21,49 @@ import {
 import { useTranslation } from "react-i18next";
 import {
   IconCheck,
-  IconDeviceFloppy,
-  IconUsersGroup,
+  IconX,
 } from "@tabler/icons-react";
-import { useDisclosure, useHotkeys } from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 
-import { hasLength, useForm, isNotEmpty } from "@mantine/form";
+import {  useForm, isNotEmpty } from "@mantine/form";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import InputForm from "../../form-builders/InputForm.jsx";
-import ImageUploadDropzone from "../../form-builders/ImageUploadDropzone.jsx";
 import TextAreaForm from "../../form-builders/TextAreaForm";
-import { useLocalStorage } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
 import PhoneNumberInput from "../../form-builders/PhoneNumInput.jsx";
-import { readLocalStorageValue } from "@mantine/hooks";
-import fallbackSrc from "../../../assets/images/fallbackSrc.jpg";
 import axios from "axios";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 
 function SignupEditForm(props) {
-  const { formValues, spinner, id, setSpinner } = props;
+  const { id } = props;
   const { t, i18n } = useTranslation();
 
   const { mainAreaHeight } = useOutletContext();
   const height = mainAreaHeight - 65; //TabList height 104
-  const [opened, { open, close }] = useDisclosure(false);
 
   const [saveCreateLoading, setSaveCreateLoading] = useState(false);
+  const [spinner, setSpinner] = useState(false);
+  const [formValues, setFormValues] = useState(null);
   const navigate = useNavigate();
-  const [twitter, setTwitter] = useState("");
-  const [linkedin, setLinkedin] = useState("");
-  const [facebook, setFacebook] = useState("");
-  const [instagram, setInstagram] = useState("");
-  const [website, setWebsite] = useState("");
-  const [company_email, setCompany_email] = useState("");
   const form = useForm({
     initialValues: {
       name: formValues?.name || "",
       email: formValues?.email || "",
       mobile: formValues?.mobile || "",
-      about: formValues?.about || "",
+      phone: formValues?.mobile || "",
+      about: formValues?.about_me || "",
       profile_pic: formValues?.profile_pic || "",
       company_name: formValues?.company_name || "",
       designation: formValues?.designation || "",
       company_logo: formValues?.company_logo || "",
       address: formValues?.address || "",
+      xtwitter: formValues?.xtwitter || "",
+      linkedin: formValues?.linkedin || "",
+      facebook: formValues?.facebook || "",
+      instagram: formValues?.instagram || "",
+      website: formValues?.website || "",
+      company_email: formValues?.company_email || "",
     },
     validate: {
       name: isNotEmpty(),
@@ -78,13 +73,26 @@ function SignupEditForm(props) {
         }
         return null;
       },
-      mobile: isNotEmpty(),
+      phone: isNotEmpty(),
       about: isNotEmpty(),
       company_name: isNotEmpty(),
       designation: isNotEmpty(),
       address: isNotEmpty(),
-      profile_pic: isNotEmpty(),
-      company_logo: isNotEmpty(),
+      // Remove required validation for images in edit mode - they already exist
+      profile_pic: (value) => {
+        // Only validate if no existing image and no new upload
+        if (!value && !uploadedImage && !formValues?.profile_pic) {
+          return "Profile picture is required";
+        }
+        return null;
+      },
+      company_logo: (value) => {
+        // Only validate if no existing image and no new upload
+        if (!value && !companyLogoImage && !formValues?.company_logo) {
+          return "Company logo is required";
+        }
+        return null;
+      },
       company_email: (value) => {
         if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
           return true;
@@ -98,6 +106,9 @@ function SignupEditForm(props) {
   const [companyLogoImage, setCompanyLogoImage] = useState(null);
   const [profilePreviewImage, setProfilePreviewImage] = useState(null);
   const [companyLogoPreviewImage, setCompanyLogoPreviewImage] = useState(null);
+  const [errorModal, setErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [confirmModal, setConfirmModal] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -105,10 +116,69 @@ function SignupEditForm(props) {
       if (companyLogoPreviewImage) URL.revokeObjectURL(companyLogoPreviewImage);
     };
   }, [profilePreviewImage, companyLogoPreviewImage]);
-  const [confirmModal, setConfirmModal] = useState(false);
+
+  useEffect(() => {
+    if (formValues) {
+      form.setValues({
+        name: formValues.name || "",
+        email: formValues.email || "",
+        mobile: formValues.mobile || "",
+        phone: formValues.mobile || "",
+        about: formValues.about_me || "",
+        profile_pic: formValues.profile_pic || "",
+        company_name: formValues.company_name || "",
+        designation: formValues.designation || "",
+        company_logo: formValues.company_logo || "",
+        address: formValues.address || "",
+        xtwitter: formValues.xtwitter || "",
+        linkedin: formValues.linkedin || "",
+        facebook: formValues.facebook || "",
+        instagram: formValues.instagram || "",
+        website: formValues.website || "",
+        company_email: formValues.company_email || "",
+      });
+    }
+  }, [formValues]);
+
+  // Fetch form values when component mounts
+  useEffect(() => {
+    if (id) {
+      setSpinner(true);
+      axios({
+        method: "get",
+        url: `${import.meta.env.VITE_API_GATEWAY_URL}/nfc-user-details/${id}`,
+        headers: {},
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setSpinner(false);
+          setFormValues(res.data.data);
+        }
+      })
+      .catch((error) => {
+        setSpinner(false);
+        console.error("Error fetching user details:", error);
+        
+        let errorMsg = "Failed to load user details. Please try again.";
+        
+        if (error.response) {
+          errorMsg = error.response.data?.message || 
+                    error.response.data?.error || 
+                    `Server error: ${error.response.status}`;
+        } else if (error.request) {
+          errorMsg = "Network error. Please check your internet connection.";
+        } else {
+          errorMsg = error.message || "An unexpected error occurred.";
+        }
+        
+        setErrorMessage(errorMsg);
+        setErrorModal(true);
+      });
+    }
+  }, [id]);
   return (
     <Box>
-      <Modal opened={confirmModal} centered>
+      <Modal opened={confirmModal} centered onClose={() => setConfirmModal(false)}>
         <Flex
           className="borderRadiusAll"
           h={height / 5}
@@ -144,43 +214,75 @@ function SignupEditForm(props) {
           </Button>
         </Flex>
       </Modal>
+      
+      <Modal opened={errorModal} centered>
+        <Flex
+          className="borderRadiusAll"
+          h={height / 5}
+          justify={"center"}
+          align={"center"}
+          direction={"column"}
+        >
+          <Text ta={"center"} fz={14} fw={600} p={"xs"} c="red">
+            Update Failed
+          </Text>
+          <Text ta={"center"} fz={12} fw={400} p={"xs"}>
+            {errorMessage}
+          </Text>
+        </Flex>
+        <Flex className="borderRadiusAll" justify={'center'} align={'center'} pb={'xs'} mt={'4'}>
+        <Button
+            color="red.5"
+            size="xs"
+            mt={"xs"}
+            onClick={() => {
+              setErrorModal(false);
+              setErrorMessage("");
+            }}
+          >
+            Try Again
+          </Button>
+        </Flex>
+      </Modal>
       <form
         onSubmit={form.onSubmit((values) => {
           const formValue = {};
 
-          if (twitter) {
-            formValue["twitter"] = twitter;
+          // Use form values for social media fields
+          if (values.xtwitter) {
+            formValue["xtwitter"] = values.xtwitter;
           }
-          if (linkedin) {
-            formValue["linkedin"] = linkedin;
+          if (values.linkedin) {
+            formValue["linkedin"] = values.linkedin;
           }
-          if (facebook) {
-            formValue["facebook"] = facebook;
+          if (values.facebook) {
+            formValue["facebook"] = values.facebook;
           }
-          if (instagram) {
-            formValue["instagram"] = instagram;
+          if (values.instagram) {
+            formValue["instagram"] = values.instagram;
           }
-          if (website) {
-            formValue["website"] = website;
+          if (values.website) {
+            formValue["website"] = values.website;
           }
-          if (company_email) {
-            formValue["company_email"] = company_email;
+          if (values.company_email) {
+            formValue["company_email"] = values.company_email;
           }
           formValue["name"] = values.name;
           formValue["email"] = values.email;
-          formValue["mobile"] = values.mobile;
-          formValue["about"] = values.about;
-          formValue["profile_pic"] = values.profile_pic;
+          formValue["mobile"] = values.phone || values.mobile;
+          formValue["about_me"] = values.about;
           formValue["company_name"] = values.company_name;
           formValue["designation"] = values.designation;
-          formValue["company_logo"] = values.company_logo;
           formValue["address"] = values.address;
+          
+          // Only include image fields if new images are uploaded
           if (uploadedImage) {
             formValue["profile_pic"] = uploadedImage;
           }
           if (companyLogoImage) {
             formValue["company_logo"] = companyLogoImage;
           }
+                
           modals.openConfirmModal({
             title: <Text size="md"> {t("FormConfirmationTitle")}</Text>,
             children: <Text size="sm"> {t("FormConfirmationMessage")}</Text>,
@@ -226,15 +328,27 @@ function SignupEditForm(props) {
                   setConfirmModal(true);
                 })
                 .catch((error) => {
-                  notifications.show({
-                    color: "red",
-                    title: "Error",
-                    message:
-                      error.response?.data?.message || "Something went wrong",
-                    icon: <IconX size="1rem" />,
-                    autoClose: 2000,
-                  });
+                  setSpinner(false);
                   console.error("Error:", error);
+                  
+                  let errorMsg = "Something went wrong. Please try again.";
+                  
+                  if (error.response) {
+                    // Server responded with error status
+                    errorMsg = error.response.data?.message || 
+                              error.response.data?.error || 
+                              error.response.data?.errors?.[0]?.message ||
+                              `Server error: ${error.response.status}`;
+                  } else if (error.request) {
+                    // Network error
+                    errorMsg = "Network error. Please check your internet connection.";
+                  } else {
+                    // Other error
+                    errorMsg = error.message || "An unexpected error occurred.";
+                  }
+                  
+                  setErrorMessage(errorMsg);
+                  setErrorModal(true);
                 });
             },
           });
@@ -472,11 +586,10 @@ function SignupEditForm(props) {
                                             }
                                             tooltip={t("Phone")}
                                             placeholder={t("Phone")}
-                                            // required={true}
                                             nextField={"xtwitter"}
-                                            name={"mobile"}
+                                            name={"phone"}
                                             form={form}
-                                            id={"mobile"}
+                                            id={"phone"}
                                           />
                                         </Box>
                                       </Grid.Col>
@@ -527,11 +640,6 @@ function SignupEditForm(props) {
                                             required={false}
                                             nextField={"linkedin"}
                                             name={"xtwitter"}
-                                            onChange={(event) => {
-                                              setTwitter(
-                                                event.currentTarget.value
-                                              );
-                                            }}
                                             mt={{
                                               base: 1,
                                               sm: 1,
@@ -588,11 +696,6 @@ function SignupEditForm(props) {
                                             required={false}
                                             nextField={"facebook"}
                                             name={"linkedin"}
-                                            onChange={(event) => {
-                                              setLinkedin(
-                                                event.currentTarget.value
-                                              );
-                                            }}
                                             form={form}
                                             mt={{
                                               base: 1,
@@ -650,12 +753,6 @@ function SignupEditForm(props) {
                                             required={false}
                                             nextField={"instagram"}
                                             name={"facebook"}
-                                            onChange={(event) => {
-                                              console.log("ok");
-                                              setFacebook(
-                                                event.currentTarget.value
-                                              );
-                                            }}
                                             form={form}
                                             mt={{
                                               base: 1,
@@ -709,16 +806,10 @@ function SignupEditForm(props) {
                                         <Box>
                                           <InputForm
                                             tooltip={t("InstaAccount")}
-                                            // label={t('LinkedinAccount')}
                                             placeholder={t("InstaAccount")}
                                             required={false}
                                             nextField={"about"}
                                             name={"instagram"}
-                                            onChange={(event) => {
-                                              setInstagram(
-                                                event.currentTarget.value
-                                              );
-                                            }}
                                             form={form}
                                             mt={{
                                               base: 1,
@@ -1081,14 +1172,8 @@ function SignupEditForm(props) {
                                       <Box>
                                         <InputForm
                                           tooltip={t("CompanyWebsite")}
-                                          // label={t('CompanyWebsite')}
                                           placeholder={t("CompanyWebsite")}
                                           required={false}
-                                          onChange={(event) => {
-                                            setWebsite(
-                                              event.currentTarget.value
-                                            );
-                                          }}
                                           nextField={"company_email"}
                                           name={"website"}
                                           form={form}
@@ -1134,16 +1219,10 @@ function SignupEditForm(props) {
                                       <Box>
                                         <InputForm
                                           tooltip={t("CompanyEmail")}
-                                          // label={t('CompanyEmail')}
                                           placeholder={t("CompanyEmail")}
                                           required={false}
                                           nextField={"address"}
                                           name={"company_email"}
-                                          onChange={(event) => {
-                                            setCompany_email(
-                                              event.currentTarget.value
-                                            );
-                                          }}
                                           form={form}
                                           mt={{
                                             base: 1,

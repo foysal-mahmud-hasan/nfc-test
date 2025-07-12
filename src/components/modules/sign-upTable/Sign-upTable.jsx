@@ -7,6 +7,13 @@ import {
   rem,
   Anchor,
   ScrollArea,
+  LoadingOverlay,
+  Card,
+  Table,
+  Button,
+  Pagination,
+  Text,
+  Center,
 } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import {
@@ -15,143 +22,160 @@ import {
   IconEyeEdit,
   IconTrashX,
 } from "@tabler/icons-react";
-import { DataTable } from "mantine-datatable";
-import { readLocalStorageValue, useLocalStorage } from "@mantine/hooks";
-import { Navigate, useOutletContext } from "react-router-dom";
-import { Table } from "@mantine/core";
+import { useOutletContext } from "react-router-dom";
 
 import tableCss from "../../../assets/css/Table.module.css";
+import axios from "axios";
 
 function SignupTable() {
   const { t } = useTranslation();
-  const [currentPage, setCurrentPage] = useState(1);
   const { mainAreaHeight } = useOutletContext();
-  const tableHeight = mainAreaHeight + 30;
-  const perPage = 30;
+  const height = mainAreaHeight + 32;
+  const perPage = 20;
+  const [page, setPage] = useState(1);
+  const [indexData, setIndexData] = useState([]);
+  const [allData, setAllData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [totalRecords, setTotalRecords] = useState(0);
 
-  const data = useLocalStorage({
-    key: "signup-form-data",
-    defaultValue: [],
-  });
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    setLoading(true);
+    axios({
+        method: "get",
+        url: `${import.meta.env.VITE_API_GATEWAY_URL}/users`,
+        headers: {},
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          setAllData(res.data.data);
+          setTotalRecords(res.data.data.length);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user details:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    const from = (page - 1) * perPage;
+    const to = from + perPage;
+    setIndexData(allData.slice(from, to));
+  }, [page, perPage, allData]);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+  };
+
+  const totalPages = Math.ceil(totalRecords / perPage);
 
   return (
-    <Box>
-      <ScrollArea>
-        <DataTable
-          classNames={{
-            root: tableCss.root,
-            table: tableCss.table,
-            header: tableCss.header,
-            footer: tableCss.footer,
-            pagination: tableCss.pagination,
-          }}
-          records={data}
-          columns={[
-            {
-              accessor: "index",
-              title: t("S/N"),
-              textAlignment: "right",
-              width: 50,
-              render: (item) => data.indexOf(item) + 1,
-            },
-            { accessor: "name", title: t("Name") },
-            { accessor: "email", title: t("Email") },
-            { accessor: "phone", title: t("Phone"), width: 150 },
-
-            { accessor: "companyName", title: t("Company Name") },
-            { accessor: "designation", title: t("Designation"), width: 150 },
-            {
-              accessor: "companyWebsite",
-              title: t("Company Website"),
-            },
-            { accessor: "companyEmail", title: t("Company Email") },
-
-            { accessor: "address", title: t("Address") },
-
-            {
-              accessor: "action",
-              title: t("Action"),
-              textAlign: "right",
-              render: (data) => (
-                <Group gap={4} justify="right" wrap="nowrap">
-                  <Menu
-                    position="bottom-end"
-                    offset={3}
-                    withArrow
-                    trigger="hover"
-                    openDelay={100}
-                    closeDelay={400}
-                  >
-                    <Menu.Target>
-                      <ActionIcon
-                        variant="outline"
-                        color="gray.6"
-                        radius="xl"
-                        aria-label="Settings"
-                      >
-                        <IconDotsVertical
-                          height={"18"}
-                          width={"18"}
-                          stroke={1.5}
-                        />
-                      </ActionIcon>
-                    </Menu.Target>
-                    <Menu.Dropdown>
-                      <Menu.Item
-                        w={"200"}
-                        href="/inventory/config"
-                        leftSection={
-                          <IconPencil
-                            style={{ width: rem(14), height: rem(14) }}
-                          />
-                        }
-                      >
-                        <Anchor href="https://mantine.dev/" target="_blank">
-                          {t("Edit")}
-                        </Anchor>
-                      </Menu.Item>
-                      <Menu.Item
-                        href="/inventory/config"
-                        leftSection={
-                          <IconEyeEdit
-                            style={{ width: rem(14), height: rem(14) }}
-                          />
-                        }
-                      >
-                        <Anchor href="https://mantine.dev/" target="_blank">
-                          {t("Show")}
-                        </Anchor>
-                      </Menu.Item>
-                      <Menu.Item
-                        href=""
-                        leftSection={
-                          <IconTrashX
-                            style={{ width: rem(14), height: rem(14) }}
-                          />
-                        }
-                      >
-                        <Anchor href="/inventory/config">{t("Delete")}</Anchor>
-                      </Menu.Item>
-                    </Menu.Dropdown>
-                  </Menu>
-                </Group>
-              ),
-            },
-          ]}
-          totalRecords={data.length}
-          recordsPerPage={perPage}
-          page={currentPage}
-          onPageChange={(newPage) => setCurrentPage(newPage)}
-          loaderSize="xs"
-          height={tableHeight}
-          loaderColor="grape"
-          scrollAreaProps={{ type: "never" }}
-        />
-      </ScrollArea>
-    </Box>
+    <>
+      <Box style={{ display: 'flex', flexDirection: 'column', height: height }}>
+        <LoadingOverlay visible={loading} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
+        
+        <ScrollArea h={height} scrollbarSize={2} scrollbars="y" type="never">
+          <Table type="native">
+            <Table withBorder withColumnBorders highlightOnHover striped stickyHeader>
+              <Table.Thead>
+                <Table.Tr>
+                  <Table.Th>{t("S/N")}</Table.Th>
+                  <Table.Th>{t("Name")}</Table.Th>
+                  <Table.Th>{t("Email")}</Table.Th>
+                  <Table.Th>{t("Mobile")}</Table.Th>
+                  <Table.Th>{t("Company Name")}</Table.Th>
+                  <Table.Th>{t("Designation")}</Table.Th>
+                  <Table.Th>{t("Tracking Number")}</Table.Th>
+                  <Table.Th>{t("Actions")}</Table.Th>
+                </Table.Tr>
+              </Table.Thead>
+              <Table.Tbody>
+                {indexData.map((item, index) => (
+                  <Table.Tr key={item.id || index}>
+                    <Table.Td>{((page - 1) * perPage) + index + 1}</Table.Td>
+                    <Table.Td>{item.name}</Table.Td>
+                    <Table.Td>{item.email}</Table.Td>
+                    <Table.Td>{item.mobile}</Table.Td>
+                    <Table.Td>{item.company_name}</Table.Td>
+                    <Table.Td>{item.designation}</Table.Td>
+                    <Table.Td>{item.tracking_no}</Table.Td>
+                    <Table.Td>
+                      <Group spacing="xs">
+                        <Menu shadow="md" width={200} position="bottom-end">
+                          <Menu.Target>
+                            <ActionIcon
+                              variant="outline"
+                              color="gray"
+                              size="sm"
+                            >
+                              <IconDotsVertical size={16} />
+                            </ActionIcon>
+                          </Menu.Target>
+                          <Menu.Dropdown>
+                            <Menu.Item
+                              leftSection={<IconEyeEdit size={14} />}
+                              onClick={() => {
+                                // Handle view action
+                                console.log("View:", item);
+                              }}
+                            >
+                              {t("View")}
+                            </Menu.Item>
+                            <Menu.Item
+                              leftSection={<IconPencil size={14} />}
+                              onClick={() => {
+                                // Handle edit action
+                                console.log("Edit:", item);
+                              }}
+                            >
+                              {t("Edit")}
+                            </Menu.Item>
+                            <Menu.Item
+                              leftSection={<IconTrashX size={14} />}
+                              color="red"
+                              onClick={() => {
+                                // Handle delete action
+                                console.log("Delete:", item);
+                              }}
+                            >
+                              {t("Delete")}
+                            </Menu.Item>
+                          </Menu.Dropdown>
+                        </Menu>
+                      </Group>
+                    </Table.Td>
+                  </Table.Tr>
+                ))}
+              </Table.Tbody>
+            </Table>
+          </Table>
+        </ScrollArea>
+        
+        {/* Sticky Pagination at Bottom */}
+        <Box style={{ 
+          borderTop: '1px solid #e9ecef', 
+          backgroundColor: '#fff', 
+          padding: '12px 16px',
+          marginTop: 'auto'
+        }}>
+          <Group position="apart">
+            <Text size="sm" color="dimmed">
+              {((page - 1) * perPage) + 1} - {Math.min(page * perPage, totalRecords)} of {totalRecords}
+            </Text>
+            <Pagination
+              value={page}
+              onChange={handlePageChange}
+              total={totalPages}
+              size="sm"
+              withEdges
+              color="blue"
+            />
+          </Group>
+        </Box>
+      </Box>
+    </>
   );
 }
 

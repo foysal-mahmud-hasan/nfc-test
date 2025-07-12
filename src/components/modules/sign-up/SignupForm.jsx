@@ -91,9 +91,11 @@ function SignupForm() {
     },
   });
   const [confirmModal, setConfirmModal] = useState(false);
+  const [errorModal, setErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   return (
     <Box>
-      <Modal opened={confirmModal} centered>
+      <Modal opened={confirmModal} centered onClose={() => setConfirmModal(false)}>
         <Flex
           className="borderRadiusAll"
           h={height / 5}
@@ -123,6 +125,36 @@ function SignupForm() {
           </Button>
         </Flex>
       </Modal>
+      
+      <Modal opened={errorModal} centered>
+        <Flex
+          className="borderRadiusAll"
+          h={height / 5}
+          justify={"center"}
+          align={"center"}
+          direction={"column"}
+        >
+          <Text ta={"center"} fz={14} fw={600} p={"xs"} c="red">
+            Registration Failed
+          </Text>
+          <Text ta={"center"} fz={12} fw={400} p={"xs"}>
+            {errorMessage}
+          </Text>
+        </Flex>
+        <Flex className="borderRadiusAll" justify={'center'} align={'center'} pb={'xs'} mt={'4'}>
+        <Button
+            color="red.5"
+            size="xs"
+            mt={"xs"}
+            onClick={() => {
+              setErrorModal(false);
+              setErrorMessage("");
+            }}
+          >
+            Try Again
+          </Button>
+        </Flex>
+      </Modal>
       <form
         onSubmit={form.onSubmit((values) => {
           const formValue = {};
@@ -148,7 +180,7 @@ function SignupForm() {
           formValue["name"] = values.name;
           formValue["email"] = values.email;
           formValue["mobile"] = values.mobile;
-          formValue["about"] = values.about;
+          formValue["about_me"] = values.about;
           formValue["profile_pic"] = values.profile_pic;
           formValue["company_name"] = values.company_name;
           formValue["designation"] = values.designation;
@@ -187,15 +219,27 @@ function SignupForm() {
                   }
                 })
                 .catch((error) => {
-                  notifications.show({
-                    color: "red",
-                    title: "Error",
-                    message:
-                      error.response?.data?.message || "Something went wrong",
-                    icon: <IconX size="1rem" />,
-                    autoClose: 2000,
-                  });
+                  setSpinner(false);
                   console.error("Error:", error);
+                  
+                  let errorMsg = "Something went wrong. Please try again.";
+                  
+                  if (error.response) {
+                    // Server responded with error status
+                    errorMsg = error.response.data?.message || 
+                              error.response.data?.error || 
+                              error.response.data?.errors?.[0]?.message ||
+                              `Server error: ${error.response.status}`;
+                  } else if (error.request) {
+                    // Network error
+                    errorMsg = "Network error. Please check your internet connection.";
+                  } else {
+                    // Other error
+                    errorMsg = error.message || "An unexpected error occurred.";
+                  }
+                  
+                  setErrorMessage(errorMsg);
+                  setErrorModal(true);
                 });
             },
           });
@@ -1213,11 +1257,6 @@ function SignupForm() {
                                   color={`orange.6`}
                                   type="submit"
                                   id="EntityFormSubmit"
-                                  // onClick={(values) => {
-                                  //     setFormData = values;
-                                  //     console.log('Form Submitted with values:', values)
-                                  // }}
-                                  // leftSection={<IconDeviceFloppy size={16} />}
                                 >
                                   {spinner ? (
                                     <Loader color="red" type="dots" size={30} />
