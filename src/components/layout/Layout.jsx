@@ -13,7 +13,7 @@ function Layout() {
     const location = useLocation();
     const paramPath = window.location.pathname;
     const headerHeight = 42;
-    const footerHeight = 110;
+    const footerHeight = 90;
     const mainAreaHeight = height - (headerHeight + footerHeight + 5);
 
     return (
@@ -36,10 +36,8 @@ function Layout() {
                     })}
                 >
                     {paramPath !== '/' ? (
-                        // If the current path is not '/', render the Outlet component
                         <Outlet context={{ mainAreaHeight }} />
                     ) : (
-                        // If the current path is '/', render the MainDashboard component (or placeholder)
                         <SignupLanding height={mainAreaHeight} />
                     )}
                 </Container>

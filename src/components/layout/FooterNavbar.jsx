@@ -90,7 +90,7 @@ function FooterNavbar() {
                         },
                     })}
                 >
-                    <Carousel
+                    {/* <Carousel
                         height="100%"
                         slideGap="xl"
                         controlsOffset="sm"
@@ -102,7 +102,7 @@ function FooterNavbar() {
                         slideSize={{ base: '33%' }}
                     >
                         {socialMediaSlides}
-                    </Carousel>
+                    </Carousel> */}
                 </Container>
             </footer>
         </>

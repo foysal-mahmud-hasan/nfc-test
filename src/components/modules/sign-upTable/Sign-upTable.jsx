@@ -26,8 +26,7 @@ function SignupTable() {
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const { mainAreaHeight } = useOutletContext();
-  const tableHeight = mainAreaheight - 10;
-  const height = mainAreaheight - 10;
+  const tableHeight = mainAreaHeight + 30;
   const perPage = 30;
 
   const data = useLocalStorage({
@@ -39,7 +38,7 @@ function SignupTable() {
   }, [data]);
 
   return (
-    <Box className={"borderRadiusAll"}>
+    <Box>
       <ScrollArea>
         <DataTable
           classNames={{
@@ -58,26 +57,24 @@ function SignupTable() {
               width: 50,
               render: (item) => data.indexOf(item) + 1,
             },
-            { accessor: "name", title: t("Name"), width: 200 }, // Adjust width as needed
-            { accessor: "email", title: t("Email"), width: 200 }, // Adjust width as needed
-            { accessor: "phone", title: t("Phone"), width: 150 }, // Adjust width as needed
+            { accessor: "name", title: t("Name") },
+            { accessor: "email", title: t("Email") },
+            { accessor: "phone", title: t("Phone"), width: 150 },
 
-            { accessor: "companyName", title: t("Company Name"), width: 200 }, // Adjust width as needed
-            { accessor: "designation", title: t("Designation"), width: 150 }, // Adjust width as needed
+            { accessor: "companyName", title: t("Company Name") },
+            { accessor: "designation", title: t("Designation"), width: 150 },
             {
               accessor: "companyWebsite",
               title: t("Company Website"),
-              width: 200,
-            }, // Adjust width as needed
-            { accessor: "companyEmail", title: t("Company Email"), width: 200 }, // Adjust width as needed
+            },
+            { accessor: "companyEmail", title: t("Company Email") },
 
-            { accessor: "address", title: t("Address"), width: 200 }, // Adjust width as needed
+            { accessor: "address", title: t("Address") },
 
             {
               accessor: "action",
               title: t("Action"),
               textAlign: "right",
-              // Adjust width as needed
               render: (data) => (
                 <Group gap={4} justify="right" wrap="nowrap">
                   <Menu
