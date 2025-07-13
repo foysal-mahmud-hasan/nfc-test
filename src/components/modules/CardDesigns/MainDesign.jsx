@@ -257,7 +257,7 @@ export default function MainDesign(props) {
                   }}
                 >
                   <Text fw={400} fz={8} c={"#FFFFFF"}>
-                    {formValues?.linkedin}asdasdasd
+                    {formValues?.linkedin}
                   </Text>
                 </Box>
                 <Box

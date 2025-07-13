@@ -9,6 +9,8 @@ import {
   Flex,
   Text,
   LoadingOverlay,
+  Stack,
+  Button,
 } from "@mantine/core";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -68,10 +70,6 @@ function SelectDesignIndex() {
         console.log(`Selected Design: ${design}`);
       },
     });
-
-    // You can pass this design to another function or component here
-
-    // Example: setFormData(design);
   };
 
   return (
@@ -88,11 +86,11 @@ function SelectDesignIndex() {
                   <Box>
                     <Box
                       mt={6}
-                      mb={6}
+                      mb={2}
                       className={"boxBackground borderRadiusAll"}
                     >
                       <Flex
-                        h={{ base: height + 115, md: height + 76 }}
+                        h={{ base: height + 50, md: height + 50 }}
                         justify={"center"}
                         align={"center"}
                         w={"100%"}
@@ -175,34 +173,57 @@ function SelectDesignIndex() {
                           </Grid.Col>
                         </Grid> */}
                       </Flex>
-                      {/* <Box
-                        pl={`sm`}
-                        pb={{ base: "xs", sm: "xs", md: "xs" }}
-                        pr={8}
-                        pt={"sm"}
-                        className={"boxBackground borderRadiusAll"}
-                      >
-                        <Grid span={12}>
-                          <Grid.Col>
-                            <Stack right align="flex-end" h={25}>
-                              <>
-                                <Button
-                                  size="xs"
-                                  color={`orange.6`}
-                                  type="submit"
-                                  id="EntityFormSubmit"
-                                >
-                                  {spinner ? (
-                                    <Loader color="red" type="dots" size={30} />
-                                  ) : (
-                                    "Submit"
-                                  )}
-                                </Button>
-                              </>
-                            </Stack>
-                          </Grid.Col>
-                        </Grid>
-                      </Box> */}
+                    </Box>
+                    <Box
+                      pl={`sm`}
+                      pb={{ base: "xs", sm: "xs", md: "xs" }}
+                      pr={8}
+                      pt={"xs"}
+                      className={"boxBackground borderRadiusAll"}
+                    >
+                      <Grid span={12}>
+                        <Grid.Col>
+                          <Stack right align="flex-end" h={25}>
+                            <>
+                              <Button
+                                size="xs"
+                                color={`orange.6`}
+                                onClick={() =>
+                                  modals.openConfirmModal({
+                                    title: (
+                                      <Text size="md">
+                                        {" "}
+                                        {t("FormConfirmationTitle")}
+                                      </Text>
+                                    ),
+                                    children: (
+                                      <Text size="sm">
+                                        {" "}
+                                        {t("FormConfirmationMessage")}
+                                      </Text>
+                                    ),
+                                    labels: {
+                                      confirm: t("Submit"),
+                                      cancel: t("Cancel"),
+                                    },
+                                    confirmProps: { color: "orange.6" },
+                                    onCancel: () => console.log("Cancel"),
+                                    onConfirm: () => {
+                                      navigate(`/view/${id}`);
+                                    },
+                                  })
+                                }
+                              >
+                                <Flex direction={`column`} gap={0}>
+                                  <Text fz={12} fw={400}>
+                                    {t("CardView")}
+                                  </Text>
+                                </Flex>
+                              </Button>
+                            </>
+                          </Stack>
+                        </Grid.Col>
+                      </Grid>
                     </Box>
                   </Box>
                 </Box>
