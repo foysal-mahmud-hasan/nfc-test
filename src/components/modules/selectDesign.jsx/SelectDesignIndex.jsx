@@ -26,6 +26,7 @@ import DesignSix from "../CardDesigns/DesignSix.jsx";
 import { useOutletContext } from "react-router-dom";
 import axios from "axios";
 import MainDesign from "../CardDesigns/MainDesign.jsx";
+import NewDesign from "../CardDesigns/NewDesign.jsx";
 
 function SelectDesignIndex() {
   const { t, i18n } = useTranslation();
@@ -109,8 +110,8 @@ function SelectDesignIndex() {
                         >
                           <Grid.Col span={12}>
                             <Center>
-                              <Box onClick={() => handleCardClick("BoldCard")}>
-                                <MainDesign formValues={formValues} id={id} />
+                              <Box> 
+                                <NewDesign formValues={formValues} id={id} />
                               </Box>
                             </Center>
                           </Grid.Col>
