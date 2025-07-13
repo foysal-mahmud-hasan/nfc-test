@@ -469,7 +469,6 @@ function ViewCard(props) {
                                                 </Text>
                                             </Flex>
                                         </Button>
-
                                     </>
                                 }
                             </>

@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import {
   Button,
@@ -19,13 +19,10 @@ import {
   Modal,
 } from "@mantine/core";
 import { useTranslation } from "react-i18next";
-import {
-  IconCheck,
-  IconX,
-} from "@tabler/icons-react";
+import { IconCheck, IconX } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 
-import {  useForm, isNotEmpty } from "@mantine/form";
+import { useForm, isNotEmpty } from "@mantine/form";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import InputForm from "../../form-builders/InputForm.jsx";
@@ -41,8 +38,6 @@ function SignupEditForm(props) {
 
   const { mainAreaHeight } = useOutletContext();
   const height = mainAreaHeight - 65; //TabList height 104
-
-  const [saveCreateLoading, setSaveCreateLoading] = useState(false);
   const [spinner, setSpinner] = useState(false);
   const [formValues, setFormValues] = useState(null);
   const navigate = useNavigate();
@@ -149,36 +144,41 @@ function SignupEditForm(props) {
         url: `${import.meta.env.VITE_API_GATEWAY_URL}/nfc-user-details/${id}`,
         headers: {},
       })
-      .then((res) => {
-        if (res.status === 200) {
+        .then((res) => {
+          if (res.status === 200) {
+            setSpinner(false);
+            setFormValues(res.data.data);
+          }
+        })
+        .catch((error) => {
           setSpinner(false);
-          setFormValues(res.data.data);
-        }
-      })
-      .catch((error) => {
-        setSpinner(false);
-        console.error("Error fetching user details:", error);
-        
-        let errorMsg = "Failed to load user details. Please try again.";
-        
-        if (error.response) {
-          errorMsg = error.response.data?.message || 
-                    error.response.data?.error || 
-                    `Server error: ${error.response.status}`;
-        } else if (error.request) {
-          errorMsg = "Network error. Please check your internet connection.";
-        } else {
-          errorMsg = error.message || "An unexpected error occurred.";
-        }
-        
-        setErrorMessage(errorMsg);
-        setErrorModal(true);
-      });
+          console.error("Error fetching user details:", error);
+
+          let errorMsg = "Failed to load user details. Please try again.";
+
+          if (error.response) {
+            errorMsg =
+              error.response.data?.message ||
+              error.response.data?.error ||
+              `Server error: ${error.response.status}`;
+          } else if (error.request) {
+            errorMsg = "Network error. Please check your internet connection.";
+          } else {
+            errorMsg = error.message || "An unexpected error occurred.";
+          }
+
+          setErrorMessage(errorMsg);
+          setErrorModal(true);
+        });
     }
   }, [id]);
   return (
     <Box>
-      <Modal opened={confirmModal} centered onClose={() => setConfirmModal(false)}>
+      <Modal
+        opened={confirmModal}
+        centered
+        onClose={() => setConfirmModal(false)}
+      >
         <Flex
           className="borderRadiusAll"
           h={height / 5}
@@ -214,7 +214,7 @@ function SignupEditForm(props) {
           </Button>
         </Flex>
       </Modal>
-      
+
       <Modal opened={errorModal} centered>
         <Flex
           className="borderRadiusAll"
@@ -230,8 +230,14 @@ function SignupEditForm(props) {
             {errorMessage}
           </Text>
         </Flex>
-        <Flex className="borderRadiusAll" justify={'center'} align={'center'} pb={'xs'} mt={'4'}>
-        <Button
+        <Flex
+          className="borderRadiusAll"
+          justify={"center"}
+          align={"center"}
+          pb={"xs"}
+          mt={"4"}
+        >
+          <Button
             color="red.5"
             size="xs"
             mt={"xs"}
@@ -274,7 +280,7 @@ function SignupEditForm(props) {
           formValue["company_name"] = values.company_name;
           formValue["designation"] = values.designation;
           formValue["address"] = values.address;
-          
+
           // Only include image fields if new images are uploaded
           if (uploadedImage) {
             formValue["profile_pic"] = uploadedImage;
@@ -282,7 +288,7 @@ function SignupEditForm(props) {
           if (companyLogoImage) {
             formValue["company_logo"] = companyLogoImage;
           }
-                
+
           modals.openConfirmModal({
             title: <Text size="md"> {t("FormConfirmationTitle")}</Text>,
             children: <Text size="sm"> {t("FormConfirmationMessage")}</Text>,
@@ -330,23 +336,25 @@ function SignupEditForm(props) {
                 .catch((error) => {
                   setSpinner(false);
                   console.error("Error:", error);
-                  
+
                   let errorMsg = "Something went wrong. Please try again.";
-                  
+
                   if (error.response) {
                     // Server responded with error status
-                    errorMsg = error.response.data?.message || 
-                              error.response.data?.error || 
-                              error.response.data?.errors?.[0]?.message ||
-                              `Server error: ${error.response.status}`;
+                    errorMsg =
+                      error.response.data?.message ||
+                      error.response.data?.error ||
+                      error.response.data?.errors?.[0]?.message ||
+                      `Server error: ${error.response.status}`;
                   } else if (error.request) {
                     // Network error
-                    errorMsg = "Network error. Please check your internet connection.";
+                    errorMsg =
+                      "Network error. Please check your internet connection.";
                   } else {
                     // Other error
                     errorMsg = error.message || "An unexpected error occurred.";
                   }
-                  
+
                   setErrorMessage(errorMsg);
                   setErrorModal(true);
                 });
@@ -1417,25 +1425,23 @@ function SignupEditForm(props) {
                         <Grid.Col>
                           <Stack right align="flex-end" h={25}>
                             <>
-                              {!saveCreateLoading && (
-                                <Button
-                                  size="xs"
-                                  color={`orange.6`}
-                                  type="submit"
-                                  id="EntityFormSubmit"
-                                  // onClick={(values) => {
-                                  //     setFormData = values;
-                                  //     console.log('Form Submitted with values:', values)
-                                  // }}
-                                  // leftSection={<IconDeviceFloppy size={16} />}
-                                >
-                                  {spinner ? (
-                                    <Loader color="red" type="dots" size={30} />
-                                  ) : (
-                                    "Submit"
-                                  )}
-                                </Button>
-                              )}
+                              <Button
+                                size="xs"
+                                color={`orange.6`}
+                                type="submit"
+                                id="EntityFormSubmit"
+                                // onClick={(values) => {
+                                //     setFormData = values;
+                                //     console.log('Form Submitted with values:', values)
+                                // }}
+                                // leftSection={<IconDeviceFloppy size={16} />}
+                              >
+                                {spinner ? (
+                                  <Loader color="red" type="dots" size={30} />
+                                ) : (
+                                  "Submit"
+                                )}
+                              </Button>
                             </>
                           </Stack>
                         </Grid.Col>
