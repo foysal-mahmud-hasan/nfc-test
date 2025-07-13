@@ -45,7 +45,6 @@ function SignupForm() {
   const height = mainAreaHeight - 65; //TabList height 104
   const [opened, { open, close }] = useDisclosure(false);
 
-  const [saveCreateLoading, setSaveCreateLoading] = useState(false);
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();
   const [twitter, setTwitter] = useState("");
@@ -95,7 +94,11 @@ function SignupForm() {
   const [errorMessage, setErrorMessage] = useState("");
   return (
     <Box>
-      <Modal opened={confirmModal} centered onClose={() => setConfirmModal(false)}>
+      <Modal
+        opened={confirmModal}
+        centered
+        onClose={() => setConfirmModal(false)}
+      >
         <Flex
           className="borderRadiusAll"
           h={height / 5}
@@ -110,8 +113,14 @@ function SignupForm() {
             Kindly check your mail for further instruction.
           </Text>
         </Flex>
-        <Flex className="borderRadiusAll" justify={'center'} align={'center'} pb={'xs'} mt={'4'}>
-        <Button
+        <Flex
+          className="borderRadiusAll"
+          justify={"center"}
+          align={"center"}
+          pb={"xs"}
+          mt={"4"}
+        >
+          <Button
             color="orange.5"
             size="xs"
             mt={"xs"}
@@ -125,7 +134,7 @@ function SignupForm() {
           </Button>
         </Flex>
       </Modal>
-      
+
       <Modal opened={errorModal} centered>
         <Flex
           className="borderRadiusAll"
@@ -141,8 +150,14 @@ function SignupForm() {
             {errorMessage}
           </Text>
         </Flex>
-        <Flex className="borderRadiusAll" justify={'center'} align={'center'} pb={'xs'} mt={'4'}>
-        <Button
+        <Flex
+          className="borderRadiusAll"
+          justify={"center"}
+          align={"center"}
+          pb={"xs"}
+          mt={"4"}
+        >
+          <Button
             color="red.5"
             size="xs"
             mt={"xs"}
@@ -221,23 +236,25 @@ function SignupForm() {
                 .catch((error) => {
                   setSpinner(false);
                   console.error("Error:", error);
-                  
+
                   let errorMsg = "Something went wrong. Please try again.";
-                  
+
                   if (error.response) {
                     // Server responded with error status
-                    errorMsg = error.response.data?.message || 
-                              error.response.data?.error || 
-                              error.response.data?.errors?.[0]?.message ||
-                              `Server error: ${error.response.status}`;
+                    errorMsg =
+                      error.response.data?.message ||
+                      error.response.data?.error ||
+                      error.response.data?.errors?.[0]?.message ||
+                      `Server error: ${error.response.status}`;
                   } else if (error.request) {
                     // Network error
-                    errorMsg = "Network error. Please check your internet connection.";
+                    errorMsg =
+                      "Network error. Please check your internet connection.";
                   } else {
                     // Other error
                     errorMsg = error.message || "An unexpected error occurred.";
                   }
-                  
+
                   setErrorMessage(errorMsg);
                   setErrorModal(true);
                 });
@@ -1251,20 +1268,18 @@ function SignupForm() {
                         <Grid.Col>
                           <Stack right align="flex-end" h={25}>
                             <>
-                              {!saveCreateLoading && (
-                                <Button
-                                  size="xs"
-                                  color={`orange.6`}
-                                  type="submit"
-                                  id="EntityFormSubmit"
-                                >
-                                  {spinner ? (
-                                    <Loader color="red" type="dots" size={30} />
-                                  ) : (
-                                    "Submit"
-                                  )}
-                                </Button>
-                              )}
+                              <Button
+                                size="xs"
+                                color={`orange.6`}
+                                type="submit"
+                                id="EntityFormSubmit"
+                              >
+                                {spinner ? (
+                                  <Loader color="red" type="dots" size={30} />
+                                ) : (
+                                  "Submit"
+                                )}
+                              </Button>
                             </>
                           </Stack>
                         </Grid.Col>

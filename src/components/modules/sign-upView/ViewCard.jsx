@@ -41,6 +41,7 @@ import twitter from '../../../assets/images/twitter.png';
 import linkedin from '../../../assets/images/linkedin.png';
 import instagram from '../../../assets/images/instagram.png';
 import CardGeneratorIndex from "../v-card/generateAndDownloadVCard";
+import { isAuthenticated, getUserData } from "../../../utils/auth";
 
 
 function ViewCard(props) {
@@ -58,6 +59,14 @@ function ViewCard(props) {
         console.log('Download button clicked');
         // Call the CardGeneratorIndex component to initiate download
         CardGeneratorIndex({ values });
+    }
+
+    const handleEditClick = () => {
+        if (isAuthenticated()) {
+            navigate(`/edit/${id}`);
+        } else {
+            navigate('/login');
+        }
     }
 
     return (
@@ -426,9 +435,7 @@ function ViewCard(props) {
                                             color={`orange.6`}
                                             // type="submit"
                                             id="EntityFormSubmit3"
-                                            onClick={() => {
-                                                navigate('/login');
-                                            }}
+                                            onClick={handleEditClick}
                                         >
                                             <Flex direction={`column`} gap={0}>
                                                 <Text fz={12} fw={400}>

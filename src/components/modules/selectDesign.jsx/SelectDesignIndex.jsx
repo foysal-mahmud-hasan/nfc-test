@@ -91,11 +91,10 @@ function SelectDesignIndex() {
                       mb={6}
                       className={"boxBackground borderRadiusAll"}
                     >
-                      <ScrollArea
+                      <Flex
                         h={{ base: height + 115, md: height + 76 }}
-                        scrollbarSize={2}
-                        scrollbars="y"
-                        type="never"
+                        justify={"center"}
+                        align={"center"}
                         w={"100%"}
                       >
                         <LoadingOverlay
@@ -104,30 +103,28 @@ function SelectDesignIndex() {
                           overlayProps={{ radius: "sm", blur: 2 }}
                           loaderProps={{ color: "red.6" }}
                         />
-                        <Grid columns={12} gutter={"xl"} mt={"md"}>
+                        <Grid
+                          columns={12}
+                          gutter={"xl"}
+                          mt={"md"}
+                          justify="center"
+                        >
                           <Grid.Col span={12}>
-                            <Flex
-                              justify={"center"}
-                              align={"center"}
-                              mt={{ base: "md", md: 0 }}
-                            >
+                            <Center>
                               <Box onClick={() => handleCardClick("BoldCard")}>
                                 <MainDesign formValues={formValues} id={id} />
                               </Box>
-                            </Flex>
+                            </Center>
                           </Grid.Col>
                         </Grid>
-                        <Grid columns={12} gutter={"xl"} mt={"md"}>
+                        {/* <Grid columns={12} gutter={"xl"} mt={"md"}>
                           <Grid.Col span={{ base: 12, md: 6 }}>
-                            <Flex
-                              justify={"center"}
-                              align={"center"}
-                              mt={{ base: "md", md: 0 }}
+                            <Center
                             >
                               <Box onClick={() => handleCardClick("BoldCard")}>
                                 <BoldCard formValues={formValues} id={id} />
                               </Box>
-                            </Flex>
+                            </Center>
                           </Grid.Col>
                           <Grid.Col span={{ base: 12, md: 6 }}>
                             <Center>
@@ -176,8 +173,36 @@ function SelectDesignIndex() {
                               </Box>
                             </Center>
                           </Grid.Col>
+                        </Grid> */}
+                      </Flex>
+                      {/* <Box
+                        pl={`sm`}
+                        pb={{ base: "xs", sm: "xs", md: "xs" }}
+                        pr={8}
+                        pt={"sm"}
+                        className={"boxBackground borderRadiusAll"}
+                      >
+                        <Grid span={12}>
+                          <Grid.Col>
+                            <Stack right align="flex-end" h={25}>
+                              <>
+                                <Button
+                                  size="xs"
+                                  color={`orange.6`}
+                                  type="submit"
+                                  id="EntityFormSubmit"
+                                >
+                                  {spinner ? (
+                                    <Loader color="red" type="dots" size={30} />
+                                  ) : (
+                                    "Submit"
+                                  )}
+                                </Button>
+                              </>
+                            </Stack>
+                          </Grid.Col>
                         </Grid>
-                      </ScrollArea>
+                      </Box> */}
                     </Box>
                   </Box>
                 </Box>

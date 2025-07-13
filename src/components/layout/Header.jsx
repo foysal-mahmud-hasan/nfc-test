@@ -17,6 +17,7 @@ import flagBD from "../../assets/images/flags/bd.svg";
 import flagGB from "../../assets/images/flags/gb.svg";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { isAuthenticated, logout } from "../../utils/auth";
 
 import LazyCoders from "../../assets/images/LazyCoders.jpg";
 
@@ -40,6 +41,12 @@ export default function Header() {
   const isHomePage = location.pathname === "/";
   const isLoginPage = location.pathname === "/login";
   const showSignupButton = (isHomePage || isLoginPage) && !isClicked;
+  const userLoggedIn = isAuthenticated();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <Container
@@ -79,6 +86,21 @@ export default function Header() {
               <Flex direction="column" gap={0}>
                 <Text fz={12} fw={400}>
                   {t("SignUp")}
+                </Text>
+              </Flex>
+            </Button>
+          )}
+          {userLoggedIn && (
+            <Button
+              size="xs"
+              color="orange.6"
+              type="button"
+              id="LogoutButton"
+              onClick={handleLogout}
+            >
+              <Flex direction="column" gap={0}>
+                <Text fz={12} fw={400}>
+                  {t("Logout")}
                 </Text>
               </Flex>
             </Button>

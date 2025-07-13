@@ -28,6 +28,11 @@ import TerminalbdBg from "../../assets/images/terminalbd-bg.png";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import {
+  isAuthenticated,
+  getUserData,
+  login as authLogin,
+} from "../../utils/auth";
 
 export default function Login() {
   const { t, i18n } = useTranslation();
@@ -38,11 +43,10 @@ export default function Login() {
   const [spinner, setSpinner] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // const user = localStorage.getItem("user");
-
-  // if (user) {
-  //     return <Navigate replace to="/" />;
-  // }
+  if (isAuthenticated()) {
+    const userData = getUserData();
+    return <Navigate replace to={`/edit/${userData.tracking_no}`} />;
+  }
 
   const form = useForm({
     initialValues: { email: "", password: "" },
@@ -68,8 +72,8 @@ export default function Login() {
     })
       .then((res) => {
         setTimeout(() => {
-          // localStorage.setItem("user", JSON.stringify(res.data.data));
-          // console.log("Succsess", res.data.data.tracking_no);
+          authLogin(res.data.data, res.data.data.token || "authenticated");
+          console.log("Success", res.data.data.tracking_no);
           setSpinner(false);
           navigate(`/edit/${res.data.data.tracking_no}`);
         }, 500);
@@ -102,7 +106,13 @@ export default function Login() {
         justify={"center"}
         align={"center"}
       >
-        <Paper shadow="lg" className={classes.form} radius={0} p={30} w={{ base : rem(350), md : rem(500)}}>
+        <Paper
+          shadow="lg"
+          className={classes.form}
+          radius={0}
+          p={30}
+          w={{ base: rem(350), md: rem(500) }}
+        >
           <Title
             order={2}
             className={classes.title}
