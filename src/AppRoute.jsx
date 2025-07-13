@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import "./lang/i18next";
 import SignupIndex from "./components/modules/sign-up/SignupIndex";
@@ -8,10 +8,12 @@ import SignupTableIndex from "./components/modules/sign-upTable/Sign-upTableInde
 import SelectDesignIndex from "./components/modules/selectDesign.jsx/SelectDesignIndex";
 import ConfirmationIndex from "./components/modules/sign-upConfirmation/ConfirmationIndex";
 import Login from "./components/modules/Login";
+
 function AppRoute() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
+        <Route index element={<Navigate to="/login" replace />} />
         <Route path="login" element={<Login />} />
         <Route path="sign-up" element={<SignupIndex />} />
         <Route path="view/:id" element={<SignupViewIndex />} />
