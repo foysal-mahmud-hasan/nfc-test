@@ -17,6 +17,7 @@ import {
   Loader,
   LoadingOverlay,
   Modal,
+  em,
 } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import {
@@ -25,7 +26,7 @@ import {
   IconUsersGroup,
   IconX,
 } from "@tabler/icons-react";
-import { useDisclosure, useHotkeys } from "@mantine/hooks";
+import { useDisclosure, useHotkeys, useMediaQuery } from "@mantine/hooks";
 
 import { hasLength, isNotEmpty, useForm } from "@mantine/form";
 import { modals } from "@mantine/modals";
@@ -52,6 +53,7 @@ function SignupForm() {
   const [instagram, setInstagram] = useState("");
   const [website, setWebsite] = useState("");
   const [company_email, setCompany_email] = useState("");
+  const isMobile = useMediaQuery(`(max-width: ${em(750)})`);
 
   const form = useForm({
     initialValues: {
@@ -273,8 +275,8 @@ function SignupForm() {
                   className={"boxBackground borderRadiusAll"}
                 >
                   <Grid>
-                    <Grid.Col h={54}>
-                      <Title order={6} mt={"xs"} pl={"6"}>
+                    <Grid.Col h={isMobile ? 40 : 54}>
+                      <Title order={6} mt={isMobile ? "2" : "xs"} pl={"6"}>
                         {t("WelcomeSignup")}
                       </Title>
                     </Grid.Col>
@@ -284,7 +286,7 @@ function SignupForm() {
                   <Box>
                     <Box mt={"4"}>
                       <ScrollArea
-                        h={{ base: height - 10, md: height - 10 }}
+                        h={{ base: height + 4, md: height - 10 }}
                         scrollbarSize={2}
                         scrollbars="y"
                         type="never"
@@ -1271,6 +1273,7 @@ function SignupForm() {
                           <Stack right align="flex-end" h={25}>
                             <>
                               <Button
+                                fullWidth={isMobile ? true : false}
                                 size="xs"
                                 color={`orange.6`}
                                 type="submit"
