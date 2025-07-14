@@ -639,5 +639,6 @@
   "AboutYourself" : "About Yourself",
   "ProfilePic" : "Profile Picture",
   "CompanyLogo" : "Company Logo",
-  "EmailRequired" : "Email Required"
+  "EmailRequired" : "Email Required",
+  "ViewCard" : "View Card"
 }

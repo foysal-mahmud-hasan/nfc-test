@@ -45,12 +45,10 @@ import { isAuthenticated, getUserData } from "../../../utils/auth";
 
 function ViewCard(props) {
   const { formValues, spinner, id } = props;
-  console.log(formValues);
   const { t } = useTranslation();
   const values = readLocalStorageValue({ key: "signup-form-data" });
   const { mainAreaHeight } = useOutletContext();
   const height = mainAreaHeight - 65;
-  const [opened, { open, close }] = useDisclosure(false);
   const isMobile = useMediaQuery(`(max-width: ${em(750)})`);
   const navigate = useNavigate();
 
@@ -78,7 +76,7 @@ function ViewCard(props) {
       />
       <ScrollArea
         p={0}
-        h={{ base: height + 70, md: height + 32 }}
+        h={{ base: height + 50, md: height + 48 }}
         scrollbarSize={2}
         scrollbars="y"
         type="never"
@@ -610,63 +608,50 @@ function ViewCard(props) {
         pt={"xs"}
         className={"boxBackground borderRadiusAll"}
       >
-        <Grid span={12}>
-          <Grid.Col>
-            <Group justify="flex-end" h={{ base: 30, md: 25 }}>
-              <>
-                {
-                  <>
-                    <Button
-                      size="xs"
-                      color={`orange.6`}
-                      // type="submit"
-                      id="EntityFormSubmit3"
-                      onClick={handleEditClick}
-                    >
-                      <Flex direction={`column`} gap={0}>
-                        <Text fz={12} fw={400}>
-                          {t("Edit")}
-                        </Text>
-                      </Flex>
-                    </Button>
-                    <Button
-                      size="xs"
-                      color={`orange.6`}
-                      // type="submit"
-                      id="EntityFormSubmit1"
-                      onClick={() =>
-                        modals.openConfirmModal({
-                          title: (
-                            <Text size="md"> {t("FormConfirmationTitle")}</Text>
-                          ),
-                          children: (
-                            <Text size="sm">
-                              {" "}
-                              {t("FormConfirmationMessage")}
-                            </Text>
-                          ),
-                          labels: { confirm: t("Submit"), cancel: t("Cancel") },
-                          confirmProps: { color: "orange.6" },
-                          onCancel: () => console.log("Cancel"),
-                          onConfirm: () => {
-                            navigate(`/card-select/${id}`);
-                            // console.log('ok');
-                          },
-                        })
-                      }
-                    >
-                      <Flex direction={`column`} gap={0}>
-                        <Text fz={12} fw={400}>
-                          {t("ViewCard")}
-                        </Text>
-                      </Flex>
-                    </Button>
-                  </>
-                }
-              </>
-            </Group>
-          </Grid.Col>
-        </Grid>
+        <Flex direction="row" gap={8} w={"100%"} justify={"flex-end"}>
+          <Button
+            w={isMobile ? "50%" : "auto"}
+            size="xs"
+            color={`orange.6`}
+            // type="submit"
+            id="EntityFormSubmit3"
+            onClick={handleEditClick}
+          >
+            <Flex direction={`column`} gap={0}>
+              <Text fz={12} fw={400}>
+                {t("Edit")}
+              </Text>
+            </Flex>
+          </Button>
+          <Button
+            w={isMobile ? "50%" : "auto"}
+            size="xs"
+            color={`orange.6`}
+            // type="submit"
+            id="EntityFormSubmit1"
+            onClick={() =>
+              modals.openConfirmModal({
+                title: <Text size="md"> {t("FormConfirmationTitle")}</Text>,
+                children: (
+                  <Text size="sm"> {t("FormConfirmationMessage")}</Text>
+                ),
+                labels: { confirm: t("Submit"), cancel: t("Cancel") },
+                confirmProps: { color: "orange.6" },
+                onCancel: () => console.log("Cancel"),
+                onConfirm: () => {
+                  navigate(`/card-select/${id}`);
+                  // console.log('ok');
+                },
+              })
+            }
+          >
+            <Flex direction={`column`} gap={0}>
+              <Text fz={12} fw={400}>
+                {t("ViewCard")}
+              </Text>
+            </Flex>
+          </Button>
+        </Flex>
       </Box>
     </Box>
   );
