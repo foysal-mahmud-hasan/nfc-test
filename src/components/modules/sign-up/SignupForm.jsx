@@ -43,7 +43,6 @@ function SignupForm() {
 
   const { mainAreaHeight } = useOutletContext();
   const height = mainAreaHeight - 65; //TabList height 104
-  const [opened, { open, close }] = useDisclosure(false);
 
   const [spinner, setSpinner] = useState(false);
   const navigate = useNavigate();
@@ -135,7 +134,7 @@ function SignupForm() {
         </Flex>
       </Modal>
 
-      <Modal opened={errorModal} centered>
+      <Modal opened={errorModal} centered onClose={() => setErrorModal(false)}>
         <Flex
           className="borderRadiusAll"
           h={height / 5}
@@ -194,7 +193,7 @@ function SignupForm() {
           }
           formValue["name"] = values.name;
           formValue["email"] = values.email;
-          formValue["mobile"] = values.mobile;
+          formValue["mobile"] = values.mobile?.replace(/^(\+?88)/, "");
           formValue["about_me"] = values.about;
           formValue["profile_pic"] = values.profile_pic;
           formValue["company_name"] = values.company_name;
@@ -285,7 +284,7 @@ function SignupForm() {
                   <Box>
                     <Box mt={"4"}>
                       <ScrollArea
-                        h={{ base: height + 11, md: height - 10 }}
+                        h={{ base: height - 10, md: height - 10 }}
                         scrollbarSize={2}
                         scrollbars="y"
                         type="never"
@@ -489,8 +488,11 @@ function SignupForm() {
                                         <Box>
                                           <PhoneNumberInput
                                             country={"bd"}
-                                            onChange={(phone) =>
-                                              form.setFieldValue("phone", phone)
+                                            onChange={(mobile) =>
+                                              form.setFieldValue(
+                                                "mobile",
+                                                mobile
+                                              )
                                             }
                                             tooltip={t("Phone")}
                                             placeholder={t("Phone")}

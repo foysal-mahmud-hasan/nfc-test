@@ -21,10 +21,9 @@ import {
   IconPencil,
   IconEyeEdit,
   IconTrashX,
+  IconNfc,
 } from "@tabler/icons-react";
 import { useOutletContext } from "react-router-dom";
-
-import tableCss from "../../../assets/css/Table.module.css";
 import axios from "axios";
 
 function SignupTable() {
@@ -37,14 +36,52 @@ function SignupTable() {
   const [allData, setAllData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [totalRecords, setTotalRecords] = useState(0);
+  const [nfcData, setNfcData] = useState(null);
+  const [nfcLoading, setNfcLoading] = useState(false);
+
+  const handleNfcShow = async (tracking_no) => {
+    setNfcLoading(true);
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_GATEWAY_URL}/confirm-nfc`,
+        {
+          params: { tracking_no },
+        }
+      );
+      if (response.status === 200) {
+        setNfcData(response.data);
+        console.log("NFC Data:", response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching NFC data:", error);
+    } finally {
+      setNfcLoading(false);
+    }
+  };
+  // const HandleGenerata = async (id) => {
+  //   setNfcLoading(true);
+  //   try {
+  //     const response = await axios.get(
+  //       `${import.meta.env.VITE_API_GATEWAY_URL_TWO}/nfc-show/${id}`
+  //     );
+  //     if (response.status === 200) {
+  //       setNfcData(response.data);
+  //       console.log("NFC Data:", response.data);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching NFC data:", error);
+  //   } finally {
+  //     setNfcLoading(false);
+  //   }
+  // };
 
   useEffect(() => {
     setLoading(true);
     axios({
-        method: "get",
-        url: `${import.meta.env.VITE_API_GATEWAY_URL}/users`,
-        headers: {},
-      })
+      method: "get",
+      url: `${import.meta.env.VITE_API_GATEWAY_URL}/users`,
+      headers: {},
+    })
       .then((res) => {
         if (res.status === 200) {
           setAllData(res.data.data);
@@ -73,12 +110,22 @@ function SignupTable() {
 
   return (
     <>
-      <Box style={{ display: 'flex', flexDirection: 'column', height: height }}>
-        <LoadingOverlay visible={loading} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
-        
+      <Box style={{ display: "flex", flexDirection: "column", height: height }}>
+        <LoadingOverlay
+          visible={loading}
+          zIndex={1000}
+          overlayProps={{ radius: "sm", blur: 2 }}
+        />
+
         <ScrollArea h={height} scrollbarSize={2} scrollbars="y" type="never">
           <Table type="native">
-            <Table withBorder withColumnBorders highlightOnHover striped stickyHeader>
+            <Table
+              withBorder
+              withColumnBorders
+              highlightOnHover
+              striped
+              stickyHeader
+            >
               <Table.Thead>
                 <Table.Tr>
                   <Table.Th>{t("S/N")}</Table.Th>
@@ -94,7 +141,7 @@ function SignupTable() {
               <Table.Tbody>
                 {indexData.map((item, index) => (
                   <Table.Tr key={item.id || index}>
-                    <Table.Td>{((page - 1) * perPage) + index + 1}</Table.Td>
+                    <Table.Td>{(page - 1) * perPage + index + 1}</Table.Td>
                     <Table.Td>{item.name}</Table.Td>
                     <Table.Td>{item.email}</Table.Td>
                     <Table.Td>{item.mobile}</Table.Td>
@@ -124,10 +171,28 @@ function SignupTable() {
                               {t("View")}
                             </Menu.Item>
                             <Menu.Item
+                              leftSection={<IconNfc size={14} />}
+                              onClick={() => {
+                                handleNfcShow(item.tracking_no);
+                              }}
+                              disabled={nfcLoading}
+                            >
+                              {t("Confirm")}
+                            </Menu.Item>
+                            {/* <Menu.Item
+                              leftSection={<IconNfc size={14} />}
+                              onClick={() => {
+                                HandleGenerata(item.tracking_no);
+                              }}
+                              disabled={nfcLoading}
+                            >
+                              {t("Generate")}
+                            </Menu.Item> */}
+                            <Menu.Item
                               leftSection={<IconPencil size={14} />}
                               onClick={() => {
                                 // Handle edit action
-                                console.log("Edit:", item);
+                                navigate
                               }}
                             >
                               {t("Edit")}
@@ -152,17 +217,20 @@ function SignupTable() {
             </Table>
           </Table>
         </ScrollArea>
-        
+
         {/* Sticky Pagination at Bottom */}
-        <Box style={{ 
-          borderTop: '1px solid #e9ecef', 
-          backgroundColor: '#fff', 
-          padding: '12px 16px',
-          marginTop: 'auto'
-        }}>
+        <Box
+          style={{
+            borderTop: "1px solid #e9ecef",
+            backgroundColor: "#fff",
+            padding: "12px 16px",
+            marginTop: "auto",
+          }}
+        >
           <Group position="apart">
             <Text size="sm" color="dimmed">
-              {((page - 1) * perPage) + 1} - {Math.min(page * perPage, totalRecords)} of {totalRecords}
+              {(page - 1) * perPage + 1} -{" "}
+              {Math.min(page * perPage, totalRecords)} of {totalRecords}
             </Text>
             <Pagination
               value={page}

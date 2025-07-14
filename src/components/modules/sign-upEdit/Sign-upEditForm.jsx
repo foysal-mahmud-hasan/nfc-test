@@ -46,7 +46,7 @@ function SignupEditForm(props) {
       name: formValues?.name || "",
       email: formValues?.email || "",
       mobile: formValues?.mobile || "",
-      phone: formValues?.mobile || "",
+      mobile: formValues?.mobile || "",
       about: formValues?.about_me || "",
       profile_pic: formValues?.profile_pic || "",
       company_name: formValues?.company_name || "",
@@ -68,7 +68,7 @@ function SignupEditForm(props) {
         }
         return null;
       },
-      phone: isNotEmpty(),
+      mobile: isNotEmpty(),
       about: isNotEmpty(),
       company_name: isNotEmpty(),
       designation: isNotEmpty(),
@@ -117,8 +117,7 @@ function SignupEditForm(props) {
       form.setValues({
         name: formValues.name || "",
         email: formValues.email || "",
-        mobile: formValues.mobile || "",
-        phone: formValues.mobile || "",
+        mobile: formValues.mobile?.replace(/^\+88/, '') || "",
         about: formValues.about_me || "",
         profile_pic: formValues.profile_pic || "",
         company_name: formValues.company_name || "",
@@ -215,7 +214,7 @@ function SignupEditForm(props) {
         </Flex>
       </Modal>
 
-      <Modal opened={errorModal} centered>
+      <Modal opened={errorModal} centered onClose={() => setErrorModal(false)}>
         <Flex
           className="borderRadiusAll"
           h={height / 5}
@@ -275,7 +274,7 @@ function SignupEditForm(props) {
           }
           formValue["name"] = values.name;
           formValue["email"] = values.email;
-          formValue["mobile"] = values.phone || values.mobile;
+          formValue["mobile"] = (values.mobile)?.replace(/^(\+?88)/, "");
           formValue["about_me"] = values.about;
           formValue["company_name"] = values.company_name;
           formValue["designation"] = values.designation;
@@ -589,15 +588,15 @@ function SignupEditForm(props) {
                                         <Box>
                                           <PhoneNumberInput
                                             country={"bd"}
-                                            onChange={(phone) =>
-                                              form.setFieldValue("phone", phone)
+                                            onChange={(mobile) =>
+                                              form.setFieldValue("mobile", mobile)
                                             }
                                             tooltip={t("Phone")}
                                             placeholder={t("Phone")}
                                             nextField={"xtwitter"}
-                                            name={"phone"}
+                                            name={"mobile"}
                                             form={form}
-                                            id={"phone"}
+                                            id={"mobile"}
                                           />
                                         </Box>
                                       </Grid.Col>
