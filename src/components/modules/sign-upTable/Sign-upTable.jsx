@@ -23,7 +23,7 @@ import {
   IconTrashX,
   IconNfc,
 } from "@tabler/icons-react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import axios from "axios";
 
 function SignupTable() {
@@ -38,6 +38,7 @@ function SignupTable() {
   const [totalRecords, setTotalRecords] = useState(0);
   const [nfcData, setNfcData] = useState(null);
   const [nfcLoading, setNfcLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleNfcShow = async (tracking_no) => {
     setNfcLoading(true);
@@ -191,8 +192,7 @@ function SignupTable() {
                             <Menu.Item
                               leftSection={<IconPencil size={14} />}
                               onClick={() => {
-                                // Handle edit action
-                                navigate
+                                navigate(`/edit/${item.tracking_no}`);
                               }}
                             >
                               {t("Edit")}
