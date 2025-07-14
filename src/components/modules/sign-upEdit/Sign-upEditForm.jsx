@@ -17,10 +17,11 @@ import {
   LoadingOverlay,
   useMantineTheme,
   Modal,
+  em,
 } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { IconCheck, IconX } from "@tabler/icons-react";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 
 import { useForm, isNotEmpty } from "@mantine/form";
 import { modals } from "@mantine/modals";
@@ -41,11 +42,11 @@ function SignupEditForm(props) {
   const [spinner, setSpinner] = useState(false);
   const [formValues, setFormValues] = useState(null);
   const navigate = useNavigate();
+  const isMobile = useMediaQuery(`(max-width: ${em(750)})`);
   const form = useForm({
     initialValues: {
       name: formValues?.name || "",
       email: formValues?.email || "",
-      mobile: formValues?.mobile || "",
       mobile: formValues?.mobile || "",
       about: formValues?.about_me || "",
       profile_pic: formValues?.profile_pic || "",
@@ -114,27 +115,32 @@ function SignupEditForm(props) {
 
   useEffect(() => {
     if (formValues) {
+      const displayMobile = formValues?.mobile
+        ? formValues.mobile.startsWith("+88")
+          ? formValues.mobile
+          : `+88${formValues.mobile}`
+        : "";
+
       form.setValues({
-        name: formValues.name || "",
-        email: formValues.email || "",
-        mobile: formValues.mobile?.replace(/^\+88/, '') || "",
-        about: formValues.about_me || "",
-        profile_pic: formValues.profile_pic || "",
-        company_name: formValues.company_name || "",
-        designation: formValues.designation || "",
-        company_logo: formValues.company_logo || "",
-        address: formValues.address || "",
-        xtwitter: formValues.xtwitter || "",
-        linkedin: formValues.linkedin || "",
-        facebook: formValues.facebook || "",
-        instagram: formValues.instagram || "",
-        website: formValues.website || "",
-        company_email: formValues.company_email || "",
+        name: formValues?.name || "",
+        email: formValues?.email || "",
+        mobile: displayMobile,
+        about: formValues?.about_me || "",
+        profile_pic: formValues?.profile_pic || "",
+        company_name: formValues?.company_name || "",
+        designation: formValues?.designation || "",
+        company_logo: formValues?.company_logo || "",
+        address: formValues?.address || "",
+        xtwitter: formValues?.xtwitter || "",
+        linkedin: formValues?.linkedin || "",
+        facebook: formValues?.facebook || "",
+        instagram: formValues?.instagram || "",
+        website: formValues?.website || "",
+        company_email: formValues?.company_email || "",
       });
     }
   }, [formValues]);
 
-  // Fetch form values when component mounts
   useEffect(() => {
     if (id) {
       setSpinner(true);
@@ -253,7 +259,6 @@ function SignupEditForm(props) {
         onSubmit={form.onSubmit((values) => {
           const formValue = {};
 
-          // Use form values for social media fields
           if (values.xtwitter) {
             formValue["xtwitter"] = values.xtwitter;
           }
@@ -274,7 +279,7 @@ function SignupEditForm(props) {
           }
           formValue["name"] = values.name;
           formValue["email"] = values.email;
-          formValue["mobile"] = (values.mobile)?.replace(/^(\+?88)/, "");
+          formValue["mobile"] = values.mobile?.replace(/^(\+?88)/, "");
           formValue["about_me"] = values.about;
           formValue["company_name"] = values.company_name;
           formValue["designation"] = values.designation;
@@ -295,7 +300,6 @@ function SignupEditForm(props) {
             confirmProps: { color: "red" },
             onCancel: () => console.log("Cancel"),
             onConfirm: () => {
-              // console.log(values);
               setSpinner(true);
               axios
                 .post(
@@ -312,7 +316,6 @@ function SignupEditForm(props) {
                 )
                 .then((response) => {
                   setSpinner(false);
-                  // console.log(response.data.status);
                   if (response.data.status === 200) {
                     notifications.show({
                       color: "teal",
@@ -373,8 +376,8 @@ function SignupEditForm(props) {
                   className={"boxBackground borderRadiusAll"}
                 >
                   <Grid>
-                    <Grid.Col h={54}>
-                      <Title order={6} mt={"xs"} pl={"6"}>
+                    <Grid.Col h={isMobile ? 40 : 54}>
+                      <Title order={6} mt={isMobile ? "2" : "xs"} pl={"6"}>
                         {t("WelcomeSignup")}
                       </Title>
                     </Grid.Col>
@@ -384,7 +387,7 @@ function SignupEditForm(props) {
                   <Box>
                     <Box mt={"4"}>
                       <ScrollArea
-                        h={{ base: height + 11, md: height - 10 }}
+                        h={{ base: height + 5, md: height - 10 }}
                         scrollbarSize={2}
                         scrollbars="y"
                         type="never"
@@ -589,7 +592,10 @@ function SignupEditForm(props) {
                                           <PhoneNumberInput
                                             country={"bd"}
                                             onChange={(mobile) =>
-                                              form.setFieldValue("mobile", mobile)
+                                              form.setFieldValue(
+                                                "mobile",
+                                                mobile
+                                              )
                                             }
                                             tooltip={t("Phone")}
                                             placeholder={t("Phone")}
@@ -992,7 +998,9 @@ function SignupEditForm(props) {
                                                   />
                                                 ) : formValues?.profile_pic ? (
                                                   <Image
-                                                    src={formValues.profile_pic}
+                                                    src={
+                                                      formValues?.profile_pic
+                                                    }
                                                     height={190}
                                                     fit="cover"
                                                     alt="Profile picture"
@@ -1323,7 +1331,7 @@ function SignupEditForm(props) {
                                                 />
                                               ) : formValues?.company_logo ? (
                                                 <Image
-                                                  src={formValues.company_logo}
+                                                  src={formValues?.company_logo}
                                                   height={190}
                                                   fit="cover"
                                                   alt="Company logo"
@@ -1425,15 +1433,11 @@ function SignupEditForm(props) {
                           <Stack right align="flex-end" h={25}>
                             <>
                               <Button
+                                fullWidth={isMobile ? true : false}
                                 size="xs"
                                 color={`orange.6`}
                                 type="submit"
                                 id="EntityFormSubmit"
-                                // onClick={(values) => {
-                                //     setFormData = values;
-                                //     console.log('Form Submitted with values:', values)
-                                // }}
-                                // leftSection={<IconDeviceFloppy size={16} />}
                               >
                                 {spinner ? (
                                   <Loader color="red" type="dots" size={30} />
